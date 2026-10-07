@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "价值拆解",
+  "usingComponents": {
+    "breakdown-card": "/components/breakdown-card/breakdown-card"
+  }
+}

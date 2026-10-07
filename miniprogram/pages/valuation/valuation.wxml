@@ -1,0 +1,109 @@
+<view class="page" wx:if="{{empty}}">
+  <view class="empty">
+    <text class="empty__title">还没有可拆解的估价</text>
+    <text class="empty__hint">先回到「估价」填写商品信息，再来这里看钱花在哪。</text>
+    <view class="btn btn--primary" hover-class="btn--pressed" bindtap="onBack">去填写</view>
+  </view>
+</view>
+
+<view class="page" wx:else>
+  <view class="content">
+    <view class="range-card">
+      <text class="range-card__label">{{itemName}} 的真实价值</text>
+      <text class="range-card__value">¥{{result.priceRange.low}} — {{result.priceRange.high}}</text>
+      <text class="range-card__mid">中位价 ¥{{result.priceRange.mid}}</text>
+      <text class="range-card__meta">{{categoryLabel}} · {{brandLabel}}</text>
+    </view>
+
+    <view class="verdict verdict--{{verdict.tone}}" wx:if="{{verdict}}">
+      <text class="verdict__title">{{verdict.title}}</text>
+      <text class="verdict__detail">实际售价 ¥{{retailPrice}} · {{verdict.detail}}</text>
+    </view>
+
+    <breakdown-card parts="{{parts}}" total="{{total}}"></breakdown-card>
+
+    <view class="card">
+      <text class="card__title">允许溢出，你说了算</text>
+      <text class="card__hint">这部分是运费、人工、销售等流通环节的合理加价。给多少取决于你认为多少算合理 —— 拖一下，上面的结果会跟着变。</text>
+
+      <view class="slider-head">
+        <text class="slider-head__value">{{overflowPercent}}%</text>
+        <text class="slider-head__sub">¥{{result.breakdown.overflow}}</text>
+      </view>
+
+      <slider
+        class="slider"
+        min="0"
+        max="100"
+        step="5"
+        value="{{overflowPercent}}"
+        activeColor="{{overflowColor}}"
+        backgroundColor="{{trackColor}}"
+        blockColor="{{overflowColor}}"
+        block-size="20"
+        bindchanging="onSliderChanging"
+        bindchange="onSliderChange"
+      ></slider>
+
+      <view class="slider-scale">
+        <text class="slider-scale__item">0%</text>
+        <text class="slider-scale__item">50%</text>
+        <text class="slider-scale__item">100%</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="card__title">材料价格来自哪</text>
+
+      <view class="pline" wx:for="{{materialLines}}" wx:for-index="li" wx:key="li">
+        <view class="pline__head">
+          <text class="pline__label">{{item.label}}</text>
+          <text class="pline__cost" wx:if="{{!item.degraded}}">¥{{item.cost}}</text>
+        </view>
+
+        <text class="pline__price" wx:if="{{!item.degraded}}">
+          ¥{{item.unitPrice}}/{{item.priceUnit}} × {{item.amount}}{{item.unit}}
+          <text wx:if="{{item.kg}}">（{{item.kg}} 千克）</text>
+        </text>
+
+        <text class="tag {{item.gradeClass}}">{{item.gradeLabel}}</text>
+
+        <text class="pline__note" wx:if="{{item.conversionNote}}">{{item.conversionNote}}</text>
+        <text class="pline__note pline__note--warn" wx:if="{{item.specAssumed}}">克重按行业常见值假设（{{item.specNote}}），非官方公布</text>
+        <text class="pline__note pline__note--warn" wx:if="{{item.degraded}}">未计入：{{item.reason}}</text>
+        <text class="pline__note pline__note--src" wx:if="{{item.source}}">出处：{{item.source}}<text wx:if="{{item.period}}"> · 数据期 {{item.period}}</text></text>
+      </view>
+
+      <view class="source-box">
+        <text class="source-box__title">价格表数据源清单</text>
+        <text class="source-box__line" wx:if="{{snapshotUpdatedAt}}">价格表更新：{{snapshotUpdatedAt}}</text>
+        <view class="src-item" wx:for="{{sourceList}}" wx:key="key">
+          <text class="src-item__label">{{item.label}}</text>
+          <text class="src-item__meta" wx:if="{{item.publisher}}">{{item.publisher}}</text>
+          <text class="src-item__meta" wx:if="{{item.period}}">数据期：{{item.period}}</text>
+          <text class="src-item__url" wx:if="{{item.url}}">{{item.url}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{premiumFromMargin}}">
+      <text class="card__title">品牌溢价是怎么来的</text>
+      <text class="card__hint">{{brandLabel}} 的溢价率不是拍脑袋定的，是由上市公司年报的「综合毛利率」反推：加价倍率 = 1 ÷ (1 − 毛利率)。</text>
+      <text class="card__hint card__hint--warn">口径提醒：毛利率的分母是品牌方的「营业成本」，与模型的「材料 + 加工」接近但不等价；且它已含渠道费用，与上面的「允许溢出」存在重复计算风险。</text>
+    </view>
+
+    <view class="card">
+      <text class="card__title">这次用的系数</text>
+      <view class="coeff-row" wx:for="{{coeffRows}}" wx:key="label">
+        <text class="coeff-row__label">{{item.label}}</text>
+        <text class="coeff-row__value">{{item.value}}</text>
+      </view>
+    </view>
+
+    <view class="warn-box" wx:if="{{result.degraded}}">
+      <text class="warn-box__text">材料成本缺失，本次结果已降级，仅供参考。</text>
+    </view>
+
+    <text class="disclaimer">{{result.disclaimer}}</text>
+  </view>
+</view>

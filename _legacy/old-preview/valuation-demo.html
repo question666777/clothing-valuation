@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>看光光 · 页面预览</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e9ebee;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    padding: 40px 24px 64px;
+    color: #1f2329;
+  }
+  .page-head { max-width: 860px; margin: 0 auto 28px; }
+  .page-head h1 { font-size: 20px; font-weight: 600; }
+  .page-head p { font-size: 13px; color: #6b7178; margin-top: 6px; }
+  .stage { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+  .phone {
+    width: 340px; height: 700px; background: #f5f6f8;
+    border-radius: 34px; overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0,0,0,.14);
+  }
+  .navbar {
+    background: #1f2329; color: #fff; text-align: center;
+    font-size: 15px; padding: 15px 0 13px; flex: 0 0 auto;
+  }
+  .screen { flex: 1; overflow-y: auto; font-size: 14px; }
+  .screen::-webkit-scrollbar { width: 0; }
+
+  .hero { padding: 34px 24px 18px; }
+  .hero h2 { font-size: 26px; font-weight: 600; letter-spacing: 1px; }
+  .hero p { color: #6b7178; font-size: 14px; margin-top: 6px; }
+
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin: 12px; }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+
+  .field {
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 48px; border-bottom: 1px solid #eef0f3;
+  }
+  .field:last-child { border-bottom: none; }
+  .field span:first-child { color: #4c5257; }
+  .field .val { color: #1f2329; }
+  .field .ph { color: #b9bec5; }
+
+  .actions { padding: 8px 12px; }
+  .btn {
+    border-radius: 9px; height: 46px; line-height: 46px; text-align: center;
+    font-size: 15px; margin-bottom: 10px;
+  }
+  .btn-primary { background: #1f2329; color: #fff; }
+  .btn-ghost { background: #fff; color: #1f2329; border: 1px solid #d8dbe0; line-height: 44px; }
+
+  .disclaimer { color: #8b9098; font-size: 12px; text-align: center; padding: 8px 20px 24px; }
+
+  .range-card {
+    background: #1f2329; color: #fff; padding: 28px 24px;
+    border-radius: 0 0 16px 16px;
+  }
+  .range-card .label { font-size: 13px; color: #a8adb5; }
+  .range-card .value { font-size: 30px; font-weight: 600; margin-top: 8px; letter-spacing: .5px; }
+  .range-card .mid { font-size: 13px; color: #a8adb5; margin-top: 6px; }
+
+  .part { margin-bottom: 18px; }
+  .part:last-child { margin-bottom: 0; }
+  .part-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .part-head .name { font-size: 14px; }
+  .part-head .num { font-size: 15px; font-weight: 600; }
+  .bar { height: 7px; background: #eef0f3; border-radius: 4px; margin: 6px 0 5px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: #1f2329; border-radius: 4px; }
+  .part-foot { display: flex; justify-content: space-between; color: #8b9098; font-size: 12px; }
+  .note { font-size: 12.5px; color: #8b9098; }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>看光光 · 页面预览</h1>
+  <p>这是用真实计算数据渲染的版式预览（HTML 模拟），不是小程序本体，仅用于快速看效果。</p>
+</div>
+
+<div class="stage">
+
+  <!-- 首页 -->
+  <div class="phone">
+    <div class="navbar">看光光</div>
+    <div class="screen">
+      <div class="hero">
+        <h2>买东西前拍一下</h2>
+        <p>看看它到底值多少钱</p>
+      </div>
+
+      <div class="card">
+        <h3>物品信息</h3>
+        <div class="field"><span>物品名称</span><span class="val">蓝牙耳机</span></div>
+        <div class="field"><span>品类</span><span class="val">手机数码 ›</span></div>
+        <div class="field"><span>品牌档位</span><span class="val">知名品牌 ›</span></div>
+        <div class="field"><span>材料成本（元）</span><span class="val">1200</span></div>
+      </div>
+
+      <div class="actions">
+        <div class="btn btn-primary">开始估价</div>
+        <div class="btn btn-ghost">拍照识别（待接入）</div>
+      </div>
+
+      <div class="disclaimer">估值仅供参考，不构成购买建议</div>
+    </div>
+  </div>
+
+  <!-- 价值拆解页 -->
+  <div class="phone">
+    <div class="navbar">价值拆解</div>
+    <div class="screen">
+      <div class="range-card">
+        <div class="label">蓝牙耳机的真实价值区间</div>
+        <div class="value">¥2065 — 2793</div>
+        <div class="mid">中位价 ¥2429</div>
+      </div>
+
+      <div class="card">
+        <h3>钱花在哪</h3>
+        <div style="height:14px"></div>
+
+        <div class="part">
+          <div class="part-head"><span class="name">材料成本</span><span class="num">¥1200</span></div>
+          <div class="bar"><i style="width:49%"></i></div>
+          <div class="part-foot"><span>原材料本身的价值</span><span>49%</span></div>
+        </div>
+
+        <div class="part">
+          <div class="part-head"><span class="name">加工成本</span><span class="num">¥120</span></div>
+          <div class="bar"><i style="width:5%"></i></div>
+          <div class="part-foot"><span>制造与工艺环节</span><span>5%</span></div>
+        </div>
+
+        <div class="part">
+          <div class="part-head"><span class="name">品牌溢价</span><span class="num">¥792</span></div>
+          <div class="bar"><i style="width:33%"></i></div>
+          <div class="part-foot"><span>品牌带来的附加价值</span><span>33%</span></div>
+        </div>
+
+        <div class="part">
+          <div class="part-head"><span class="name">允许溢出价值</span><span class="num">¥317</span></div>
+          <div class="bar"><i style="width:13%"></i></div>
+          <div class="part-foot"><span>运费、人工、销售费用</span><span>13%</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="note">系数来源：手机数码（加工 10% / 溢出 15%）＋ 知名品牌（品牌溢价率 60%）＋ 区间半宽 15%。全部读自 config/coefficients.js，未写死在业务代码里。</div>
+      </div>
+
+      <div class="disclaimer">估值仅供参考，不构成购买建议</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

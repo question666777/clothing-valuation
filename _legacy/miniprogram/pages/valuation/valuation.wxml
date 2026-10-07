@@ -1,0 +1,37 @@
+<block wx:if="{{result.degraded}}">
+  <view class="card">
+    <view class="warn">材料成本缺失，没法算出可信区间。请返回补全物品信息再试。</view>
+  </view>
+</block>
+
+<block wx:else>
+  <view class="range-card">
+    <view class="range-label">{{itemName}}的真实价值区间</view>
+    <view class="range-value">¥{{result.priceRange.low}} — {{result.priceRange.high}}</view>
+    <view class="range-mid">中位价 ¥{{result.priceRange.mid}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">钱花在哪</view>
+
+    <view class="part" wx:for="{{parts}}" wx:key="key">
+      <view class="part-head">
+        <text class="part-label">{{item.label}}</text>
+        <text class="part-value">¥{{item.value}}</text>
+      </view>
+      <view class="bar">
+        <view class="bar-fill" style="width: {{item.percent}}%"></view>
+      </view>
+      <view class="part-foot">
+        <text class="part-hint">{{item.hint}}</text>
+        <text class="part-percent">{{item.percent}}%</text>
+      </view>
+    </view>
+  </view>
+</block>
+
+<view class="disclaimer">{{result.disclaimer}}</view>
+
+<view class="actions">
+  <view class="btn-ghost" bindtap="onBack">改一下信息</view>
+</view>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>看光光 · 小程序界面预览</title>
+<style>
+:root {
+  --c-bg: #F4F5F7;
+  --c-bgDeep: #12141A;
+  --c-card: #FFFFFF;
+  --c-cardAlt: #FAFAFB;
+  --c-text: #16181D;
+  --c-sub: #6B7280;
+  --c-faint: #9CA3AF;
+  --c-line: #E5E7EB;
+  --c-lineSoft: #F1F2F4;
+  --c-primary: #C75B39;
+  --c-primaryDark: #A8472A;
+  --c-primarySoft: #FBEDE8;
+  --c-primaryGhost: #FFF7F3;
+  --c-accent: #F0A868;
+  --c-gradientFrom: #1E222C;
+  --c-gradientMid: #3A2A26;
+  --c-gradientTo: #C75B39;
+  --c-material: #C75B39;
+  --c-processing: #E0A458;
+  --c-design: #5B8DEF;
+  --c-brand: #8C6BB1;
+  --c-overflow: #4A9C8C;
+  --c-warn: #B45309;
+  --c-warnBg: #FEF3C7;
+  --c-semi: #3B5BDB;
+  --c-semiBg: #E0EAFF;
+  --c-good: #15803D;
+  --c-goodBg: #DCFCE7;
+  --c-flat: #4B5563;
+  --c-flatBg: #F3F4F6;
+}
+/* 小程序界面静态预览的样式 —— 由 scripts/build-preview.js 内联进 HTML。
+ * 色值全部走 CSS 变量（变量由生成器从 src/theme.js 注入），所以改主题这里会自动跟着变。
+ * 单位用 px 而非 rpx：这里是浏览器里的静态还原，不做真机适配。 */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 40px 24px 80px;
+  background: #EDEEF1;
+  color: #16181D;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- 文档头 */
+
+.doc { max-width: 1680px; margin: 0 auto 22px; }
+
+.doc h1 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.doc__lead {
+  margin: 0;
+  max-width: 900px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #4B5563;
+}
+
+.doc__lead code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  font-size: 12.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.doc__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.doc__meta span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  font-size: 12px;
+  color: #4B5563;
+}
+
+.doc__note {
+  max-width: 1680px;
+  margin: 0 auto 26px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-left: 4px solid var(--c-primary);
+  font-size: 13px;
+  line-height: 1.8;
+  color: #4B5563;
+}
+
+.doc__note strong { color: #16181D; }
+.doc__note em { font-style: normal; color: var(--c-primary); font-weight: 600; }
+
+/* ---------------------------------------------------------------- 手机框 */
+
+.frames {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 26px;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+.phone {
+  margin: 0;
+  width: 375px;
+  flex: none;
+}
+
+.phone__cap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.phone__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #16181D;
+}
+
+.phone__badge {
+  font-size: 11px;
+  color: #6B7280;
+}
+
+.screen {
+  width: 375px;
+  height: 812px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: var(--c-bg);
+  border: 1px solid #D8DADF;
+  box-shadow: 0 14px 34px rgba(16, 18, 24, 0.14);
+  position: relative;
+}
+
+/* 长页面在框内滚动，滚轮可看完整内容 */
+.screen .page {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.page { background: var(--c-bg); }
+
+/* ---------------------------------------------------------------- 渐变头 + 上翻白卡 */
+
+.head {
+  padding: 26px 20px 46px;
+  background: linear-gradient(150deg, var(--c-gradient-from) 0%, var(--c-gradient-mid) 52%, var(--c-gradient-to) 100%);
+}
+
+.head--tall { padding-bottom: 56px; }
+
+.head__brand {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.head__title {
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.head__slogan {
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.sheet {
+  margin-top: -34px;
+  padding: 22px 16px 26px;
+  border-radius: 22px 22px 0 0;
+  background: var(--c-card);
+  min-height: 320px;
+}
+
+/* ---------------------------------------------------------------- 表单 */
+
+.field { margin-top: 16px; }
+
+.field__label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-sub);
+}
+
+.input {
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line);
+  font-size: 14px;
+  color: var(--c-text);
+}
+
+.input--ph { color: var(--c-faint); }
+.input--grow { flex: 1; }
+
+.row { display: flex; align-items: center; gap: 8px; }
+
+/* ---------------------------------------------------------------- 按钮 */
+
+.btn {
+  margin-top: 16px;
+  padding: 13px;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn--primary {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
+}
+
+.btn--disabled {
+  color: #FFFFFF;
+  background: var(--c-faint);
+  opacity: 0.55;
+}
+
+.btn--ghost {
+  color: var(--c-sub);
+  background: transparent;
+  border: 1px solid var(--c-line);
+  font-weight: 400;
+}
+
+.btn--outline {
+  margin-top: 0;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-primary);
+  background: var(--c-primary-soft);
+  border: none;
+  flex: none;
+}
+
+.btn--sm { border-radius: 12px; }
+
+/* ---------------------------------------------------------------- 标签 */
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag--official { background: var(--c-good-bg); color: var(--c-good); }
+.tag--semi { background: var(--c-semi-bg); color: var(--c-semi); }
+.tag--estimate { background: var(--c-warn-bg); color: var(--c-warn); }
+.tag--flat { background: var(--c-flat-bg); color: var(--c-flat); }
+
+.disclaimer {
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--c-faint);
+}
+
+/* ---------------------------------------------------------------- 拍照入口 */
+
+.camera {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.camera__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  flex: none;
+}
+
+.camera__lens {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+}
+
+.camera__texts { flex: 1; margin-left: 12px; }
+
+.camera__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.camera__sub {
+  margin-top: 2px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chev {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--c-faint);
+  border-right: 2px solid var(--c-faint);
+  transform: rotate(45deg);
+  flex: none;
+}
+
+.chev--light { border-color: rgba(255, 255, 255, 0.7); }
+
+/* ---------------------------------------------------------------- 选项条 */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line);
+  font-size: 12.5px;
+  color: var(--c-sub);
+}
+
+.chip--on {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- 面料成分（用户只填这一项） */
+
+/* 版面按「数据类型」分组 —— 用户自己知道的 / 只有水洗标上有的 / 查表得的 */
+.group-head {
+  display: flex;
+  align-items: center;
+  margin: 26px 0 12px;
+}
+
+.group-head__no {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.group-head__title { flex: 1; font-size: 16px; font-weight: 600; color: var(--c-text); }
+.group-head__hint { font-size: 11px; color: var(--c-faint); }
+
+.field--lead { margin-top: 8px; }
+.field__label--strong { font-size: 15px; }
+
+.input--lead {
+  border-color: var(--c-primary);
+  background: var(--c-primary-ghost);
+}
+
+.field__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--c-faint);
+  line-height: 1.75;
+}
+
+.field__hint--ok { color: var(--c-primary-dark); }
+
+.scope-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  margin-top: 8px;
+  padding: 0 2px;
+}
+
+.scope-bar__text { font-size: 11px; color: var(--c-faint); }
+.scope-bar__btn { font-size: 11px; color: var(--c-primary); }
+
+.line {
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line-soft);
+}
+
+/* 系统替你计入的部位：只汇报、不可编辑。不说清"钱从哪来"，
+   用户没法判断这个数可不可信 */
+.auto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+.auto__k { flex: none; min-width: 44px; color: var(--c-sub); }
+.auto__v { flex: 1; color: var(--c-faint); }
+
+.auto__tag {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+
+.auto__cost { flex: none; color: var(--c-text); }
+.auto__cost--warn { color: var(--c-warn); }
+
+.input--amount {
+  flex: 1;
+  padding: 9px 11px;
+  font-size: 13px;
+}
+
+.line__unit { font-size: 13px; color: var(--c-sub); }
+
+.line__cost {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-primary);
+}
+
+/* 退路：改用面料名（元/米）估算。收成一行小字，不占版面但找得到 */
+.alt {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--c-sub);
+}
+
+/* 用量默认收起：只汇报系统替用户填的值，展开才有输入框 */
+.fold {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.fold__k { font-size: 11px; color: var(--c-faint); }
+.fold__v { flex: 1; margin-left: 8px; font-size: 11px; color: var(--c-sub); }
+.fold__cost { margin-left: 8px; font-size: 13px; font-weight: 600; color: var(--c-primary); }
+
+.fold__edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 40px;
+  min-width: 44px;
+  margin: -12px -4px -12px 0;
+  padding-right: 4px;
+  font-size: 11px;
+  color: var(--c-primary);
+}
+
+/* picker */
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  font-size: 12.5px;
+  color: var(--c-text);
+}
+
+.picker span:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.picker--sm { margin-top: 0; padding: 8px 10px; }
+
+/* 混纺成分 */
+/* 一行成分 = 选择行 + 这一行的价格出处（出处独占一行，故包一层） */
+.fiber-line { margin-top: 8px; }
+
+.fiber-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 这条成分的单价与出处。字小、对比低，不抢输入项的注意力，
+   但用户想核对"这个价哪来的"时必须一眼找得到 */
+.fiber-line__meta {
+  display: block;
+  margin-top: 4px;
+  padding-left: 2px;
+  font-size: 11px;
+  color: var(--c-faint);
+  line-height: 1.5;
+}
+
+.fiber-row .picker { flex: 1; min-width: 0; margin-top: 0; }
+
+.input--pct {
+  width: 62px;
+  flex: none;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 12.5px;
+}
+
+.fiber-row__pct { font-size: 12.5px; color: var(--c-sub); }
+
+/* 热区 ≥ 40px：原来是一行 11px 纯文字 / 20px 宽的 ×，缩放着看根本点不中 */
+.fiber-row__del {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 16px;
+  color: var(--c-faint);
+  flex: none;
+}
+
+.fiber-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 44px;
+  border: 1px dashed var(--c-line);
+  border-radius: 12px;
+  font-size: 12.5px;
+  color: var(--c-primary);
+}
+
+/* 成分占比合计 —— 不齐时是醒目底色（占比没凑齐 = 算出来的单价是错的，不让提交） */
+.fiber-sum {
+  display: block;
+  margin-top: 6px;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.fiber-sum--ok { color: var(--c-faint); }
+
+.fiber-sum--warn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--c-warn-bg);
+  color: var(--c-warn);
+  font-weight: 600;
+}
+
+/* 用料量提示（按克填报：默认品类典型克重，可改实测值） */
+.line__hint {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--c-faint);
+}
+
+.line__hint--warn { color: var(--c-warn); }
+
+/* 水洗标识别结果 */
+.scan {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+}
+
+.scan__title {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.scan__note {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--c-sub);
+}
+
+.scan__note--warn { color: var(--c-warn); }
+
+/* ---------------------------------------------------------------- 品牌卡 */
+
+.brand-card {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line-soft);
+}
+
+.brand-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-card__name { font-size: 14px; font-weight: 600; color: var(--c-text); }
+
+.brand-card__grid { display: flex; gap: 8px; margin-top: 12px; }
+
+.brand-card__cell {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 12px;
+  background: var(--c-card);
+  text-align: center;
+}
+
+.brand-card__k { display: block; font-size: 10.5px; color: var(--c-faint); }
+
+.brand-card__v {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-brand);
+}
+
+.brand-card__line {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--c-sub);
+}
+
+.brand-card__line--src { color: var(--c-faint); }
+
+.brand-card__warn {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-line);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--c-warn);
+}
+
+/* ---------------------------------------------------------------- 材料成本预估 */
+
+.preview {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--c-primary-ghost);
+  border: 1px solid var(--c-primary-soft);
+}
+
+.preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preview__label { font-size: 13px; color: var(--c-primary); }
+
+.preview__value {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.preview__hint { margin-top: 4px; font-size: 11px; color: var(--c-sub); }
+
+.preview__source {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--c-faint);
+}
+
+/* ---------------------------------------------------------------- 结果页 */
+
+.content { padding: 16px; }
+
+.range-card {
+  padding: 22px 18px;
+  border-radius: 18px;
+  background: linear-gradient(150deg, var(--c-gradient-from) 0%, var(--c-gradient-mid) 55%, var(--c-gradient-to) 100%);
+  color: #FFFFFF;
+}
+
+.range-card__label { font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+
+.range-card__value {
+  margin-top: 8px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.range-card__mid { margin-top: 6px; font-size: 12px; color: rgba(255, 255, 255, 0.78); }
+
+.range-card__meta {
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.verdict {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.verdict--warn { background: var(--c-warn-bg); border: 1px solid var(--c-warn); }
+.verdict--good { background: var(--c-good-bg); border: 1px solid var(--c-good); }
+.verdict--flat { background: var(--c-flat-bg); border: 1px solid var(--c-line); }
+
+.verdict__title { font-size: 14px; font-weight: 600; color: var(--c-text); }
+.verdict__detail { margin-top: 4px; font-size: 12px; color: var(--c-sub); }
+
+.card {
+  margin-top: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line-soft);
+}
+
+.card__title {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.card__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--c-sub);
+}
+
+.card__hint--warn { color: var(--c-warn); }
+
+/* 五段条 */
+.bar {
+  display: flex;
+  height: 10px;
+  margin-top: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--c-line-soft);
+}
+
+.bar__seg { height: 100%; }
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 12px 0 4px;
+  font-size: 12px;
+  color: var(--c-sub);
+}
+
+.total__value { font-size: 20px; font-weight: 700; color: var(--c-text); }
+
+.part {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.part__dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.part__texts { flex: 1; }
+.part__label { display: block; font-size: 13px; color: var(--c-text); }
+.part__hint { display: block; margin-top: 2px; font-size: 10.5px; color: var(--c-faint); }
+.part__nums { text-align: right; }
+.part__value { display: block; font-size: 13px; font-weight: 600; color: var(--c-text); }
+.part__pct { display: block; margin-top: 2px; font-size: 10.5px; color: var(--c-faint); }
+
+/* 滑块 */
+.slider-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+.slider-head__value { font-size: 22px; font-weight: 700; color: var(--c-overflow); }
+.slider-head__sub { font-size: 12px; color: var(--c-sub); }
+
+.slider { margin-top: 12px; }
+
+.slider__track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--c-line);
+}
+
+.slider__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--c-overflow);
+}
+
+.slider__block {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid var(--c-overflow);
+  box-shadow: 0 2px 6px rgba(16, 18, 24, 0.18);
+}
+
+.slider-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: var(--c-faint);
+}
+
+/* 逐条用料价格 */
+.pline {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-line-soft);
+}
+
+.pline:last-child { border-bottom: none; }
+
+.pline__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.pline__label { font-size: 13px; font-weight: 600; color: var(--c-text); }
+.pline__cost { font-size: 13px; font-weight: 600; color: var(--c-primary); }
+
+.pline__price { margin-top: 4px; font-size: 11px; color: var(--c-sub); }
+
+.pline__note {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--c-faint);
+}
+
+.pline__note--warn { color: var(--c-warn); }
+.pline__note--src { color: var(--c-sub); }
+
+.pline .tag { margin-top: 6px; }
+
+/* 系数表 */
+.coeff-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--c-line-soft);
+  font-size: 12.5px;
+}
+
+.coeff-row:first-of-type { border-top: none; }
+.coeff-row span:first-child { color: var(--c-sub); flex: none; }
+.coeff-row span:last-child { color: var(--c-text); font-weight: 600; text-align: right; }
+
+/* ---------------------------------------------------------------- 我的 */
+
+.stat-grid { display: flex; gap: 10px; }
+
+.stat {
+  flex: 1;
+  padding: 14px 8px;
+  border-radius: 14px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line-soft);
+  text-align: center;
+}
+
+.stat__n {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.stat__k { display: block; margin-top: 4px; font-size: 11px; color: var(--c-sub); }
+
+.seg {
+  display: flex;
+  height: 8px;
+  margin-top: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--c-line-soft);
+}
+
+.seg__part { height: 100%; }
+
+.seg__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.seg__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--c-sub);
+}
+
+.seg__dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.empty-record {
+  padding: 26px 0;
+  text-align: center;
+}
+
+.empty-record__title { display: block; font-size: 13px; color: var(--c-sub); }
+.empty-record__hint { display: block; margin-top: 6px; font-size: 11px; color: var(--c-faint); }
+
+/* ---------------------------------------------------------------- 深色模式（只影响文档外壳，App 本身是浅色设计） */
+
+@media (prefers-color-scheme: dark) {
+  body { background: #14161B; color: #E8EAED; }
+  .doc h1 { color: #E8EAED; }
+  .doc__lead { color: #A6ACB8; }
+  .doc__lead code { background: #1E2128; border-color: #2C3038; color: #D6DAE2; }
+  .doc__meta span { background: #1E2128; border-color: #2C3038; color: #A6ACB8; }
+  .doc__note { background: #1E2128; border-color: #2C3038; color: #A6ACB8; }
+  .doc__note strong { color: #E8EAED; }
+  .phone__name { color: #E8EAED; }
+  .phone__badge { color: #9AA1AD; }
+}
+
+</style>
+</head>
+<body>
+<header class="doc">
+<h1>看光光 · 小程序界面预览</h1>
+<p class="doc__lead">这是微信小程序<strong>三页</strong>的静态还原，<strong>不用装开发者工具</strong>就能看效果。页面里的每一个数字（材料成本、五段拆解、品牌毛利率、数据分级）都从 <code>/config</code> 与 <code>/core</code> <strong>实算</strong>得到，没有一个是手敲的 —— 改配置重跑就会跟着变。<strong>打开即用，已无登录页。</strong></p>
+<div class="doc__meta">
+<span>生成时间 2026/9/27 18:50:38</span>
+<span>价格表快照 2026-09-26</span>
+<span>品牌库 20 个（20 个有年报毛利率）</span>
+<span>纤维规格档 33 档</span>
+</div>
+</header>
+<div class="doc__note">
+<strong>演示场景：</strong>波司登 90% 白鸭绒短款羽绒服 —— 3 条用料，用量一律<strong>按克</strong>填（面料 220 克 / 填充 180 克 / 里料 120 克），品牌取波司登主品牌。选它是因为同时压到四件事：<em>多部位用料</em>、<em>按克计量（克 ÷ 1000 = 千克，零假设，不再需要克重 × 幅宽）</em>、<em>品牌 × 系列溢价来自年报毛利率</em>、<em>水洗标成分识别</em>。
+</div>
+<div class="frames">
+<figure class="phone">
+<figcaption class="phone__cap"><span class="phone__name">估价页 · 用料清单</span>
+<span class="phone__badge">拍照识别 + 多部位 + 品牌库</span>
+</figcaption>
+<div class="screen">
+<div class="page">
+<div class="head">
+<div class="head__brand">看光光</div>
+<div class="head__slogan">看清一件衣服的钱，到底花在哪</div>
+<div class="camera"><div class="camera__icon"><div class="camera__lens"></div></div>
+<div class="camera__texts"><div class="camera__title">拍水洗标，自动读成分</div>
+<div class="camera__sub">吊牌可以没成分，水洗标必须有 —— 拍它</div></div>
+<span class="chev chev--light"></span></div>
+</div>
+<div class="sheet">
+<div class="scan">
+<span class="scan__title">水洗标 · 已识别成分</span>
+<span class="scan__note">面料 涤纶 100%　·　里料 涤纶 100%　·　填充 白鸭绒 90%（含绒量）</span>
+<span class="scan__note">羽绒段里的百分比是含绒量，不是成分占比</span>
+<span class="scan__note scan__note--warn">识别结果可修正；价格表里没有的纤维会如实列出，不静默丢弃</span>
+</div>
+<div class="group-head"><span class="group-head__no">1</span><span class="group-head__title">这件衣服是什么</span></div>
+<div class="field field--lead"><span class="field__label field__label--strong">商品名称 / 描述</span>
+<div class="input input--lead">波司登 90% 白鸭绒短款羽绒服</div>
+<div class="field__hint">写得具体点：品类、品牌、面料线索都能从这行字里读出来</div></div>
+<div class="field"><span class="field__label">品类</span>
+<div class="chips"><span class="chip">T 恤</span><span class="chip">衬衫</span><span class="chip">裤装</span>
+<span class="chip chip--on">羽绒服</span><span class="chip">外套</span><span class="chip">连衣裙</span></div></div>
+<div class="field"><span class="field__label">整件衣服重量（克）</span>
+<div class="input">650</div>
+<div class="field__hint field__hint--ok">按本类衣服各部位常见用料合计 520 克换算（你填的整件重量 650 克，×1.25）</div></div>
+<div class="group-head"><span class="group-head__no">2</span><span class="group-head__title">面料成分</span><span class="group-head__hint">照水洗标填</span></div>
+<div class="line">
+<div class="fiber-line"><div class="fiber-row"><div class="picker picker--sm"><span>涤纶 · 涤纶短纤</span><span class="chev"></span></div><div class="input input--pct">100</div><span class="fiber-row__pct">%</span></div><div class="fiber-line__meta">¥8.63 / 千克 · 中国棉花信息网 · 涤纶短纤 · 2026-09-24</div></div>
+<div class="fiber-add">＋ 添加成分</div>
+<div class="fiber-sum fiber-sum--ok">成分合计 100%</div>
+<div class="alt">不知道具体成分？改用面料名（元/米）估算 ›</div>
+<div class="fold"><span class="fold__k">用料克数</span>
+<span class="fold__v">275 克 · 按你填的整件重量 650 克等比换算</span>
+<span class="fold__cost">¥2.37</span>
+<span class="fold__edit">改</span></div>
+</div>
+<div class="group-head"><span class="group-head__no">3</span><span class="group-head__title">品牌</span><span class="group-head__hint">查得到年报毛利率的都在库里</span></div>
+<div class="picker"><span>波司登 · 波司登主品牌　毛利 69.1%</span>
+<span class="chev"></span></div>
+<div class="scope-bar"><span class="scope-bar__text">只列了主营羽绒服的品牌</span><span class="scope-bar__btn">显示全部 ›</span></div>
+<div class="field"><span class="field__label">系列（同品牌不同系列溢价差很多）</span>
+<div class="picker"><span>波司登主品牌　毛利率 69.1%</span>
+<span class="chev"></span></div></div>
+<div class="brand-card">
+<div class="brand-card__head"><span class="brand-card__name">波司登 · 波司登主品牌</span>
+<span class="tag tag--official">毛利率已披露</span></div>
+<div class="brand-card__grid">
+<div class="brand-card__cell"><span class="brand-card__k">综合毛利率</span><span class="brand-card__v">69.1%</span></div>
+<div class="brand-card__cell"><span class="brand-card__k">派生加价倍率</span><span class="brand-card__v">3.24 ×</span></div>
+<div class="brand-card__cell"><span class="brand-card__k">模型用溢价率</span><span class="brand-card__v">223.6%</span></div>
+</div>
+<div class="brand-card__line">波司登国际控股有限公司 · HK:03998</div>
+<div class="brand-card__line">数据期：2025/26财年</div>
+<div class="brand-card__line brand-card__line--src">出处：港交所《截至2026年3月31日止年度的年度业绩》，经中新经纬、南方财经网报道</div>
+<div class="brand-card__warn">毛利率的分母是品牌方的「营业成本」，与模型的「材料 + 加工」口径接近但不等价；且它已含渠道费用，与「允许溢出」存在重复计算。倍率为派生值，非手填。</div>
+</div>
+<div class="group-head"><span class="group-head__no">4</span><span class="group-head__title">多少钱买的</span><span class="group-head__hint">可选，填了才能对比值不值</span></div>
+<div class="field"><div class="input">1599</div></div>
+<div class="preview">
+<div class="preview__head"><span class="preview__label">材料成本预估</span><span class="tag tag--estimate">来源未知</span></div>
+<div class="preview__value">¥164.18</div>
+<div class="preview__hint">面料 ¥2.37 + 系统计入 ¥128.97 + 辅料 ¥32.84（按品类比例 25%）</div>
+<div class="auto"><span class="auto__k">里料</span><span class="auto__v">150 克</span><span class="auto__tag">照水洗标</span><span class="auto__cost">¥1.29</span></div>
+<div class="auto"><span class="auto__k">填充</span><span class="auto__v">225 克</span><span class="auto__tag">照水洗标</span><span class="auto__cost">¥127.68</span></div>
+<div class="preview__source">上面这几项不用你填：按该类衣服的常见值计入（里料按涤纶、填充取羽绒中位档）；水洗标上写了就以标签为准</div>
+<div class="preview__source">用量默认为品类典型克重（行业常见值，非官方公布），可改成实测值</div>
+</div>
+<div class="btn btn--primary">估算真实价值</div>
+<div class="disclaimer">估值仅供参考，不构成购买建议</div>
+</div>
+</div>
+</div>
+</figure><figure class="phone">
+<figcaption class="phone__cap"><span class="phone__name">价值拆解页</span>
+<span class="phone__badge">五段 + 溢出滑块</span>
+</figcaption>
+<div class="screen">
+<div class="page">
+<div class="content">
+<div class="range-card">
+<div class="range-card__label">波司登 90% 白鸭绒短款羽绒服 的真实价值</div>
+<div class="range-card__value">¥1182 — ¥1850</div>
+<div class="range-card__mid">中位价 ¥1516</div>
+<div class="range-card__meta">羽绒服 · 波司登 · 波司登主品牌</div>
+</div>
+<div class="verdict verdict--flat"><div class="verdict__title">售价接近真实价值</div><div class="verdict__detail">实际售价 ¥1599 · 约为真实价值的 1.1 倍</div></div>
+<div class="card">
+<div class="card__title">钱花在哪</div>
+<div class="bar"><div class="bar__seg" style="width:11%;background:#C75B39"></div><div class="bar__seg" style="width:5%;background:#E0A458"></div><div class="bar__seg" style="width:4%;background:#5B8DEF"></div><div class="bar__seg" style="width:43%;background:#8C6BB1"></div><div class="bar__seg" style="width:38%;background:#4A9C8C"></div></div>
+<div class="total"><span>合计</span><span class="total__value">¥1515.76</span></div>
+<div class="part"><span class="part__dot" style="background:#C75B39"></span><div class="part__texts"><span class="part__label">材料成本</span><span class="part__hint">面料 + 辅料</span></div><div class="part__nums"><span class="part__value">¥164.18</span><span class="part__pct">11%</span></div></div><div class="part"><span class="part__dot" style="background:#E0A458"></span><div class="part__texts"><span class="part__label">加工成本</span><span class="part__hint">裁剪缝制（按件计）</span></div><div class="part__nums"><span class="part__value">¥70</span><span class="part__pct">5%</span></div></div><div class="part"><span class="part__dot" style="background:#5B8DEF"></span><div class="part__texts"><span class="part__label">设计成本</span><span class="part__hint">打版 / 样衣 / 设计</span></div><div class="part__nums"><span class="part__value">¥58.55</span><span class="part__pct">4%</span></div></div><div class="part"><span class="part__dot" style="background:#8C6BB1"></span><div class="part__texts"><span class="part__label">品牌溢价</span><span class="part__hint">牌子本身值多少</span></div><div class="part__nums"><span class="part__value">¥654.62</span><span class="part__pct">43%</span></div></div><div class="part"><span class="part__dot" style="background:#4A9C8C"></span><div class="part__texts"><span class="part__label">允许溢出</span><span class="part__hint">运费 / 人工 / 销售</span></div><div class="part__nums"><span class="part__value">¥568.41</span><span class="part__pct">38%</span></div></div>
+</div>
+<div class="card">
+<div class="card__title">允许溢出，你说了算</div>
+<div class="card__hint">这部分是运费、人工、销售等流通环节的合理加价。给多少取决于你认为多少算合理。</div>
+<div class="slider-head"><span class="slider-head__value">60%</span><span class="slider-head__sub">¥568.41</span></div>
+<div class="slider"><div class="slider__track"><div class="slider__fill" style="width:60%"></div><div class="slider__block" style="left:60%"></div></div>
+<div class="slider-scale"><span>0%</span><span>50%</span><span>100%</span></div></div>
+</div>
+<div class="card">
+<div class="card__title">材料价格来自哪</div>
+<div class="pline"><div class="pline__head"><span class="pline__label">面料 · 涤纶塔丝隆</span><span class="pline__cost">¥2.37</span></div><div class="pline__price">¥8.63/千克 × 275克（0.275 千克）</div><span class="tag tag--official">政府公布报价</span><div class="pline__note">1 千克 = 1000 克</div></div><div class="pline"><div class="pline__head"><span class="pline__label">里料</span><span class="pline__cost">¥1.29</span></div><div class="pline__price">¥8.63/千克 × 150克（0.15 千克）</div><span class="tag tag--official">政府公布报价</span><div class="pline__note">1 千克 = 1000 克</div></div><div class="pline"><div class="pline__head"><span class="pline__label">填充</span><span class="pline__cost">¥127.68</span></div><div class="pline__price">¥567.48/千克 × 225克（0.225 千克）</div><span class="tag tag--official">政府公布报价</span><div class="pline__note">1 千克 = 1000 克</div></div>
+</div>
+<div class="card">
+<div class="card__title">品牌溢价是怎么来的</div>
+<div class="card__hint">波司登 · 波司登主品牌 的溢价率不是拍脑袋定的，是由上市公司年报的「综合毛利率」反推：加价倍率 = 1 ÷ (1 − 毛利率)。</div>
+<div class="card__hint card__hint--warn">口径提醒：毛利率的分母是品牌方的「营业成本」，与模型的「材料 + 加工」接近但不等价；且它已含渠道费用，与上面的「允许溢出」存在重复计算风险。</div>
+</div>
+<div class="card">
+<div class="card__title">这次用的系数</div>
+<div class="coeff-row"><span>加工费（元/件）</span><span>70</span></div>
+<div class="coeff-row"><span>设计费率</span><span>0.25</span></div>
+<div class="coeff-row"><span>品牌溢价率</span><span>2.236245954692556（来自品牌年报毛利率）</span></div>
+<div class="coeff-row"><span>允许溢出比例</span><span>0.6（你调的）</span></div>
+<div class="coeff-row"><span>区间半宽</span><span>0.22</span></div>
+<div class="coeff-row"><span>用料条数</span><span>3 条</span></div>
+</div>
+<div class="disclaimer">估值仅供参考，不构成购买建议</div>
+</div>
+</div>
+</div>
+</figure><figure class="phone">
+<figcaption class="phone__cap"><span class="phone__name">我的</span>
+<span class="phone__badge">数字实算</span>
+</figcaption>
+<div class="screen">
+<div class="page">
+<div class="head head--tall">
+<div class="head__brand">我的</div>
+<div class="head__title">本机用户</div>
+<div class="head__slogan">本机使用 · 无需登录 · 数据不上传</div>
+</div>
+<div class="sheet">
+<div class="stat-grid">
+<div class="stat"><span class="stat__n">18</span><span class="stat__k">面料</span></div>
+<div class="stat"><span class="stat__n">33</span><span class="stat__k">纤维规格档</span></div>
+<div class="stat"><span class="stat__n">20</span><span class="stat__k">品牌</span></div>
+</div>
+<div class="card">
+<div class="card__title">数据可信度</div>
+<div class="seg"><div class="seg__part" style="width:38.88888888888889%;background:#15803D"></div><div class="seg__part" style="width:11.11111111111111%;background:#5B8DEF"></div><div class="seg__part" style="width:50%;background:#B45309"></div></div>
+<div class="seg__legend"><div class="seg__item"><span class="seg__dot" style="background:#15803D"></span>政府公布 7</div><div class="seg__item"><span class="seg__dot" style="background:#5B8DEF"></span>指数报价 2</div><div class="seg__item"><span class="seg__dot" style="background:#B45309"></span>行业估算 9</div></div>
+<div class="card__hint">共 18 种面料，其中 39% 有政府公布报价；其余如实标为估算，不假装精确。价格表快照 2026-09-26。</div>
+</div>
+<div class="card">
+<div class="card__title">估价偏好</div>
+<div class="coeff-row"><span>默认溢出比例</span><span>60%</span></div>
+<div class="coeff-row"><span>默认品牌档位</span><span>普通</span></div>
+<div class="card__hint">品牌库里 20 个品牌，其中 20 个查得到年报毛利率。查不到的按档位兜底并标为估算。</div>
+</div>
+<div class="card">
+<div class="empty-record"><span class="empty-record__title">还没有估价记录</span><span class="empty-record__hint">估价完成后会存在本机，不上传</span></div>
+</div>
+<div class="btn btn--ghost">清空本机偏好</div>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</body>
+</html>

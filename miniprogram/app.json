@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/profile/profile",
+    "pages/valuation/valuation"
+  ],
+  "window": {
+    "navigationBarTitleText": "看光光",
+    "navigationBarBackgroundColor": "#1E222C",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F4F5F7",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#9CA3AF",
+    "selectedColor": "#C75B39",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "估价"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

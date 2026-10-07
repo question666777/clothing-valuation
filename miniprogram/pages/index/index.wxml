@@ -1,0 +1,333 @@
+<view class="page">
+  <view class="head">
+    <text class="head__brand">看光光</text>
+    <text class="head__slogan">看清一件衣服的钱，到底花在哪</text>
+
+    <view class="camera" hover-class="camera--hover" bindtap="onPickLabel">
+      <view class="camera__icon">
+        <view class="camera__lens"></view>
+      </view>
+      <view class="camera__texts">
+        <text class="camera__title">拍水洗标，自动读成分</text>
+        <text class="camera__sub">吊牌可以没成分，水洗标必须有 —— 拍它</text>
+      </view>
+      <view class="chev"></view>
+    </view>
+  </view>
+
+  <view class="sheet">
+    <view class="notice" wx:if="{{hint}}">
+      <text class="notice__text">{{hint}}</text>
+    </view>
+
+    <!-- 拍完水洗标：照片 + 识别结果。读不出文字也把照片留着当参考 -->
+    <view class="scan" wx:if="{{labelImage}}">
+      <image class="scan__img" src="{{labelImage}}" mode="aspectFill" lazy-load></image>
+      <view class="scan__body">
+        <text class="scan__title">水洗标</text>
+        <text class="scan__note" wx:if="{{recognizeNote}}">{{recognizeNote}}</text>
+      </view>
+    </view>
+
+    <view class="scan-note" wx:if="{{!labelImage && recognizeNote}}">
+      <text class="scan__note">{{recognizeNote}}</text>
+    </view>
+
+    <!-- 手动敲成分：OCR 不可用、或识别漏了内容时走这条，解析逻辑与拍照完全同一套 -->
+    <view class="manual" wx:if="{{labelImage || showManualInput}}">
+      <view class="manual__head" bindtap="onToggleManualInput">
+        <text class="manual__title">手动输入成分文字</text>
+        <text class="manual__toggle">{{showManualInput ? '收起' : '展开'}}</text>
+      </view>
+      <block wx:if="{{showManualInput}}">
+        <textarea
+          class="manual__area"
+          value="{{labelText}}"
+          placeholder="照着水洗标打，例如：面料 羊毛80% 涤纶20%"
+          placeholder-class="input__ph"
+          bindinput="onLabelTextInput"
+          auto-height
+          maxlength="500"
+        ></textarea>
+        <view class="btn btn--ghost" bindtap="onParseLabelText">解析并回填用料</view>
+      </block>
+    </view>
+
+    <!-- ================================================ 1 · 这件衣服是什么 -->
+    <!--
+      这一组是"用户手上有、也只有他知道"的事：叫什么、是哪类衣服、多重。
+      名称放第一位 —— 它不只是个标签：品类、品牌、成分线索都从这行字里读出来，
+      是整页里信息量最大的一个输入。
+    -->
+    <view class="group-head">
+      <view class="group-head__no">1</view>
+      <text class="group-head__title">这件衣服是什么</text>
+    </view>
+
+    <view class="field field--lead">
+      <text class="field__label field__label--strong">商品名称 / 描述</text>
+      <input
+        class="input input--lead"
+        value="{{name}}"
+        placeholder="例如：波司登 全棉纱卡工装外套"
+        placeholder-class="input__ph"
+        bindinput="onNameInput"
+        bindblur="onNameBlur"
+      />
+      <text class="field__hint">写得具体点：品类、品牌、面料线索都能从这行字里读出来，帮你少填几项</text>
+    </view>
+
+    <view class="field">
+      <text class="field__label">品类</text>
+      <option-chips options="{{categories}}" value="{{category}}" bind:change="onCategoryChange"></option-chips>
+    </view>
+
+    <!--
+      整件衣服重量 —— 用户拿秤一放就有数，是他唯一能自己验证的用量输入。
+      他称不出"这件衣服的面料单独用了多少克"（那得把衣服拆了），
+      所以不让他填"用量"，只让他填整件重量，剩下的由系统按本类比例换算。
+    -->
+    <view class="field">
+      <text class="field__label">整件衣服重量（克）</text>
+      <input
+        class="input"
+        type="digit"
+        value="{{totalWeightText}}"
+        placeholder="例如 480，不知道就留空"
+        placeholder-class="input__ph"
+        bindinput="onTotalWeightInput"
+      />
+      <text class="field__hint field__hint--ok" wx:if="{{totalWeightText}}">{{totalWeightNote}}</text>
+      <text class="field__hint" wx:else>称一下最准（厨房秤、快递秤都行）。填了之后，面料 / 里料 / 填充的克数都按你这件衣服等比换算；留空就按这类衣服的常见值算</text>
+    </view>
+
+    <!-- ================================================ 2 · 面料成分 -->
+    <!--
+      用户要答的**只有这一个问题**：这件衣服的面料是什么成分。
+      里料 / 填充 / 辅料 / 五金不放出来 —— 用户不知道，逼他填只会逼他瞎填一个数，
+      那是把估价建在假成分上，比我们自己按品类常见值估更坏。它们由配置层
+      config.autoMaterialInputs() 按品类补齐，界面只**汇报**（见下方材料成本区）。
+    -->
+    <view class="group-head">
+      <view class="group-head__no">2</view>
+      <text class="group-head__title">面料成分</text>
+      <text class="group-head__hint">照水洗标填</text>
+    </view>
+
+    <block wx:for="{{lines}}" wx:for-index="li" wx:key="part">
+      <view class="line">
+        <!-- 按成分：主力录入项，默认就走这条（官方纤维价按千克发布，克 ÷ 1000 零假设） -->
+        <block wx:if="{{item.mode === 'fiber'}}">
+          <view class="fiber-line" wx:for="{{item.fiberRows}}" wx:for-item="fb" wx:for-index="fi" wx:key="fi">
+            <view class="fiber-row">
+              <picker class="fiber-row__picker" mode="selector" range="{{fiberOptions}}" range-key="label" value="{{fb.optIndex}}" data-li="{{li}}" data-fi="{{fi}}" bindchange="onFiberChange">
+                <view class="picker picker--sm">
+                  <text class="picker__value">{{fb.label}}</text>
+                  <text class="chev"></text>
+                </view>
+              </picker>
+              <input
+                class="input input--pct"
+                type="digit"
+                value="{{fb.pctText}}"
+                placeholder="占比"
+                placeholder-class="input__ph"
+                data-li="{{li}}" data-fi="{{fi}}"
+                bindinput="onFiberPctInput"
+              />
+              <text class="fiber-row__pct">%</text>
+              <text class="fiber-row__del" data-li="{{li}}" data-fi="{{fi}}" bindtap="onRemoveFiber" wx:if="{{item.fiberRows.length > 1}}">×</text>
+            </view>
+            <!--
+              单价与出处写在输入行下面。用户得看得见"这个纤维多少钱、谁发布的、哪一期"，
+              否则他没法判断下面那个材料成本可不可信 —— 而"每格价格都能指出出处"
+              是这个项目最硬的一条口径。picker 只渲染 label，这两项以前塞在 sub 里、
+              从头到尾没有任何模板用过，等于在界面上根本查不到价格来源。
+            -->
+            <text class="fiber-line__meta" wx:if="{{fb.priceText || fb.srcText}}">{{fb.priceText}}{{fb.srcText ? ' · ' : ''}}{{fb.srcText}}</text>
+          </view>
+
+          <view class="fiber-add" data-li="{{li}}" bindtap="onAddFiber">＋ 添加成分</view>
+          <text class="fiber-sum {{item.pctBalanced ? 'fiber-sum--ok' : 'fiber-sum--warn'}}">{{item.pctNote}}</text>
+
+          <!--
+            默认成分是**猜的**（没拍水洗标、用户也没选过）。界面把填写成本压得很低，
+            直接采纳默认值的概率反而更高 —— 所以"这还是默认值"必须写在脸上，
+            否则用户会拿一个我们猜的成分去算他的衣服。
+          -->
+          <text class="fiber-note" wx:if="{{!item.fibersTouched}}">成分暂为默认值、尚未核对 —— 请照水洗标改，或点上方拍照自动读</text>
+
+          <!-- 退路留成一行小字，不占版面：知道面料名反而更好算的人走这条 -->
+          <view class="alt" data-li="{{li}}" data-mode="fabric" bindtap="onModeChange">
+            不知道具体成分？改用面料名（元/米）估算 ›
+          </view>
+        </block>
+
+        <!-- 按面料名：价格表里已带出处的米价 -->
+        <block wx:else>
+          <picker mode="selector" range="{{fabricOptions}}" range-key="label" value="{{item.fabricIndex}}" data-li="{{li}}" bindchange="onFabricChange">
+            <view class="picker">
+              <text class="picker__value">{{item.fabricLabel}}</text>
+              <text class="chev"></text>
+            </view>
+          </picker>
+          <text class="fiber-line__meta" wx:if="{{item.fabricPriceText || item.fabricSrcText}}">{{item.fabricPriceText}}{{item.fabricSrcText ? ' · ' : ''}}{{item.fabricSrcText}}</text>
+          <view class="scope-bar" bindtap="onToggleFabricScope">
+            <text class="scope-bar__text">{{fabricScopeOnly ? '只列了适合本类的面料' : '已显示全部面料（含其他品类）'}}</text>
+            <text class="scope-bar__btn">{{fabricScopeOnly ? '显示全部 ›' : '只看本类 ›'}}</text>
+          </view>
+          <view class="alt" data-li="{{li}}" data-mode="fiber" bindtap="onModeChange">
+            ‹ 改用成分 + 克数（更准）
+          </view>
+        </block>
+
+        <!-- 克数：默认收起 —— 已经算好了，不改就当他不用管 -->
+        <view class="fold" wx:if="{{!item.showAmount}}">
+          <text class="fold__k">用料克数</text>
+          <text class="fold__v">{{item.amountNote}}</text>
+          <text class="fold__cost" wx:if="{{!item.degraded}}">¥{{item.cost}}</text>
+          <text class="fold__edit" data-li="{{li}}" bindtap="onToggleAmount">改</text>
+        </view>
+        <block wx:else>
+          <view class="line__foot">
+            <text class="field__label">用料克数</text>
+            <view class="line__amount">
+              <input
+                class="input input--amount"
+                type="digit"
+                value="{{item.amountText}}"
+                placeholder="200"
+                placeholder-class="input__ph"
+                data-li="{{li}}"
+                bindinput="onAmountInput"
+              />
+              <text class="line__unit">{{item.unit}}</text>
+            </view>
+            <text class="line__cost" wx:if="{{!item.degraded}}">= ¥{{item.cost}}</text>
+            <text class="fold__edit" data-li="{{li}}" bindtap="onToggleAmount">收起</text>
+          </view>
+          <text class="line__hint" wx:if="{{item.weightHint}}">{{item.weightHint}}（{{item.weightSource}}）。改过就以你填的为准，不再被品类切换覆盖</text>
+        </block>
+
+        <text class="line__note" wx:if="{{item.conversionNote}}">{{item.conversionNote}}</text>
+        <text class="line__note line__note--warn" wx:if="{{item.degraded}}">未计入：{{item.reason}}</text>
+      </view>
+    </block>
+
+    <!-- ================================================ 3 · 品牌 -->
+    <!--
+      品牌按**当前品类**单独列：波司登的毛利率来自羽绒服业务，把它摆在要做 T 恤的人
+      面前只会误导。默认只列主营本类的，找不到能一键展开全部 —— 不过滤，
+      因为品牌跨品类卖货是常态，藏起来会让人以为我们库里没有他的牌子。
+    -->
+    <view class="group-head">
+      <view class="group-head__no">3</view>
+      <text class="group-head__title">品牌</text>
+      <text class="group-head__hint">查得到年报毛利率的都在库里</text>
+    </view>
+
+    <picker mode="selector" range="{{brandOptions}}" range-key="label" value="{{brandIndex}}" bindchange="onBrandChange">
+      <view class="picker">
+        <text class="picker__value">{{brandOptions[brandIndex].label}}</text>
+        <text class="chev"></text>
+      </view>
+    </picker>
+
+    <view class="scope-bar" bindtap="onToggleBrandScope">
+      <text class="scope-bar__text">{{brandScopeOnly ? '只列了主营本类的品牌' : '已显示全部品牌（含其他品类）'}}</text>
+      <text class="scope-bar__btn">{{brandScopeOnly ? '显示全部 ›' : '只看本类 ›'}}</text>
+    </view>
+
+    <view class="field" wx:if="{{brandInfo && brandInfo.hasSeries}}">
+      <text class="field__label">系列（同品牌不同系列溢价能差几十个百分点）</text>
+      <picker mode="selector" range="{{seriesOptions}}" range-key="label" value="{{seriesIndex}}" bindchange="onSeriesChange">
+        <view class="picker">
+          <text class="picker__value">{{seriesOptions[seriesIndex].label}}</text>
+          <text class="chev"></text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="brand-card" wx:if="{{brandInfo}}">
+      <view class="brand-card__head">
+        <text class="brand-card__name">{{brandInfo.label}}</text>
+        <text class="tag tag--official">毛利率已披露</text>
+      </view>
+      <text class="brand-card__scope" wx:if="{{brandInfo.focus}}">业务构成：{{brandInfo.focus}}</text>
+      <text class="brand-card__scope">口径：{{brandInfo.scope}}</text>
+      <view class="brand-card__grid">
+        <view class="brand-card__cell">
+          <text class="brand-card__k">综合毛利率</text>
+          <text class="brand-card__v">{{brandInfo.marginText}}</text>
+        </view>
+        <view class="brand-card__cell">
+          <text class="brand-card__k">派生加价倍率</text>
+          <text class="brand-card__v">{{brandInfo.markupText}}</text>
+        </view>
+        <view class="brand-card__cell">
+          <text class="brand-card__k">模型用溢价率</text>
+          <text class="brand-card__v">{{brandInfo.premiumText}}</text>
+        </view>
+      </view>
+      <text class="brand-card__line" wx:if="{{brandInfo.company}}">{{brandInfo.company}}<text wx:if="{{brandInfo.listing}}"> · {{brandInfo.listing}}</text></text>
+      <text class="brand-card__line" wx:if="{{brandInfo.period}}">数据期：{{brandInfo.period}}</text>
+      <text class="brand-card__line brand-card__line--src">出处：{{brandInfo.source}}</text>
+      <text class="brand-card__warn">毛利率的分母是品牌方的「营业成本」，与模型的「材料 + 加工」口径接近但不等价；且它已含渠道费用，与「允许溢出」存在重复计算。倍率为派生值，非手填。</text>
+    </view>
+
+    <!--
+      品牌没指定、但商品名读出了档位时的说明。必须写出来 ——
+      否则用户会以为这个溢价率是按他那个品牌的年报毛利率算的，实际只是个档位估算。
+    -->
+    <text class="tier-notice" wx:if="{{tierNotice}}">{{tierNotice}}</text>
+
+    <!-- ================================================ 4 · 多少钱买的 -->
+    <view class="group-head">
+      <view class="group-head__no">4</view>
+      <text class="group-head__title">多少钱买的</text>
+      <text class="group-head__hint">可选，填了才能对比值不值</text>
+    </view>
+
+    <view class="field">
+      <input
+        class="input"
+        type="digit"
+        value="{{retailText}}"
+        placeholder="实际售价，例如 899"
+        placeholder-class="input__ph"
+        bindinput="onRetailInput"
+      />
+    </view>
+
+    <!-- ------------------------------------------------ 材料成本合计 -->
+    <view class="preview">
+      <view class="preview__head">
+        <text class="preview__label">材料成本预估</text>
+        <text class="tag {{gradeClass}}">{{gradeLabel}}</text>
+      </view>
+      <text class="preview__value">¥{{material.materialCost}}</text>
+      <text class="preview__hint">面料 ¥{{shellCost}} + 系统计入 ¥{{autoCost}} + 辅料 ¥{{material.auxiliaryCost}}（按品类比例{{auxRatioText}}）</text>
+
+      <!--
+        系统替用户计入了哪些部位，必须**逐条汇报**。
+        "钱从哪来"不能说成"你不需要知道" —— 不说，用户就没法判断这个数可不可信。
+      -->
+      <view class="auto" wx:for="{{autoParts}}" wx:key="part">
+        <text class="auto__k">{{item.label}}</text>
+        <text class="auto__v">{{item.weightText}}</text>
+        <text class="auto__tag" wx:if="{{item.fromLabel}}">照水洗标</text>
+        <text class="auto__cost" wx:if="{{!item.degraded}}">¥{{item.cost}}</text>
+        <text class="auto__cost auto__cost--warn" wx:else>未计入</text>
+      </view>
+      <text class="preview__source" wx:if="{{autoParts.length > 0}}">上面这几项不用你填：按该类衣服的常见值计入（里料按涤纶、填充取羽绒中位档）；水洗标上写了就以标签为准</text>
+
+      <text class="preview__source" wx:if="{{material.missing.length > 0}}">有 {{material.missing.length}} 条未取到价，已如实标出而未按 0 计入</text>
+      <text class="preview__warn" wx:for="{{material.pctWarnings}}" wx:key="*this">{{item}}</text>
+      <text class="preview__source" wx:if="{{material.specAssumed}}">部分用料按行业典型克重折算（见各条说明）</text>
+    </view>
+
+    <view class="btn btn--primary" hover-class="btn--pressed" bindtap="onSubmit">估算真实价值</view>
+
+    <text class="disclaimer">估值仅供参考，不构成购买建议</text>
+  </view>
+</view>

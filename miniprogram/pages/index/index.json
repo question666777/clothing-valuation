@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "看光光",
+  "usingComponents": {
+    "option-chips": "/components/option-chips/option-chips"
+  }
+}

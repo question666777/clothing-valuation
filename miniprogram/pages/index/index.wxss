@@ -1,0 +1,722 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding-bottom: 24px;
+}
+
+/* ---------------------------------------------------------------- 渐变头内的拍照入口 */
+
+.camera {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.camera--hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.camera__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.18);
+  flex: none;
+}
+
+/* 相机镜头：纯 CSS 画，不引图标字体 */
+.camera__lens {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+}
+
+.camera__texts {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.camera__title {
+  display: block;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semi);
+  color: #FFFFFF;
+}
+
+.camera__sub {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--font-size-tiny);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chev {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  transform: rotate(45deg);
+  flex: none;
+}
+
+/* ---------------------------------------------------------------- 材料成本预估 */
+
+.preview {
+  margin-top: 24px;
+  background: var(--color-primary-ghost);
+  border: 1px solid var(--color-primary-soft);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preview__label {
+  font-size: var(--font-size-small);
+  color: var(--color-primary);
+}
+
+.preview__value {
+  display: block;
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.preview__hint {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+}
+
+.preview__source {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.6;
+}
+
+/* 成分里有一部分没价 → 单价偏低。必须显眼，不能混在灰色小字里 */
+.preview__warn {
+  display: block;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-warn-bg);
+  font-size: var(--font-size-tiny);
+  color: var(--color-warn);
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------- 版面分组 */
+
+/*
+  按「数据类型」分组，而不是按原来的字段平铺顺序：
+  ① 这件衣服是什么（用户自己就知道）② 面料成分（只有水洗标上有）
+  ③ 品牌（查表）④ 多少钱买的（用户自己知道）。
+  上一版的毛病是两类混着摆：名称夹在拍照区和品类中间、售价夹在品牌卡片和材料成本之间，
+  用户看不出哪些是"他的"、哪些是"我们替他查的"。
+*/
+
+.group-head {
+  display: flex;
+  align-items: center;
+  margin: 26px 0 12px;
+}
+
+.group-head__no {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-tiny);
+  line-height: 18px;
+  text-align: center;
+}
+
+.group-head__title {
+  flex: 1;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+.group-head__hint {
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+/* 第一组的第一项：名称是整页信息量最大的输入，给它一点视觉分量 */
+.field--lead {
+  margin-top: 8px;
+}
+
+.field__label--strong {
+  font-size: var(--font-size-body);
+}
+
+.input--lead {
+  border-color: var(--color-primary);
+  background: var(--color-primary-ghost);
+}
+
+.field__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: var(--line-height-loose);
+}
+
+.field__hint--ok {
+  color: var(--color-primary-dark);
+}
+
+/* 「本类 / 全部」切换 —— 挂在 bindtap 上，热区必须 ≥40px，否则点了没反应 */
+.scope-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  margin-top: 8px;
+  padding: 0 2px;
+}
+
+.scope-bar__text {
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+.scope-bar__btn {
+  font-size: var(--font-size-tiny);
+  color: var(--color-primary);
+}
+
+.line {
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--color-card-alt);
+  border: 1px solid var(--color-line-soft);
+}
+
+.line__foot {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.line__amount {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.line__unit {
+  margin-left: 6px;
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+}
+
+.line__cost {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-primary);
+}
+
+.line__note {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.6;
+}
+
+.line__note--warn {
+  color: var(--color-warn);
+}
+
+/* ---------------------------------------------------------------- 系统替你计入的部位 */
+
+/*
+ * 用户不知道的部位（里料 / 填充）由系统按品类常见值补齐，这里**只汇报不可编辑**。
+ * 汇报是必须的：不说清"这几块钱是怎么来的"，用户没法判断这个数可不可信。
+ */
+.auto {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+}
+
+.auto__k {
+  flex: none;
+  min-width: 44px;
+  color: var(--color-sub);
+}
+
+.auto__v {
+  flex: 1;
+  color: var(--color-faint);
+}
+
+/* 这一项是照水洗标算的，不是行业常见值 —— 与估算区分开 */
+.auto__tag {
+  flex: none;
+  margin-right: 6px;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.auto__cost {
+  flex: none;
+  color: var(--color-text);
+}
+
+.auto__cost--warn {
+  color: var(--color-warn);
+}
+
+/* ---------------------------------------------------------------- 退路（换填法） */
+
+/* 主路径之外的第二条路，收成一行小字：不占版面，但找得到 */
+.alt {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 4px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+}
+
+/* ---------------------------------------------------------------- 用量（默认收起） */
+
+/*
+ * 典型克重是系统替用户填的，不是他必须回答的问题 —— 所以收起态只**汇报**，
+ * 展开才有输入框。默认摊开一堆输入框，正是"看着就累、不想填"的来源。
+ */
+.fold {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-line-soft);
+}
+
+.fold__k {
+  flex: none;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+.fold__v {
+  flex: 1;
+  margin-left: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fold__cost {
+  flex: none;
+  margin-left: 8px;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-primary);
+}
+
+.fold__edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 40px;
+  min-width: 44px;
+  flex: none;
+  /* 视觉位置不动，只把热区上下撑开（负 margin 抵消对布局的影响） */
+  margin: -12px -4px -12px 0;
+  padding-right: 4px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-primary);
+}
+
+/* ---------------------------------------------------------------- picker */
+
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+}
+
+.picker--sm {
+  margin-top: 0;
+  padding: 8px 10px;
+}
+
+.picker__value {
+  font-size: var(--font-size-small);
+  color: var(--color-text);
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 头部那个 .chev 是白的（在渐变底上）；picker 里要换成深色，否则看不见 */
+.picker .chev {
+  border-color: var(--color-faint);
+  margin-left: 8px;
+}
+
+/* ---------------------------------------------------------------- 混纺成分 */
+
+/* 一行成分 = 选择行 + 这一行的价格出处。包一层是为了让出处能独占一行 */
+.fiber-line {
+  margin-top: 8px;
+}
+.fiber-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* 这条成分的单价与出处。字小、对比低，不抢输入项的注意力 ——
+   但用户想核对"这个价哪来的"时必须一眼找得到（价格可溯源是硬口径） */
+.fiber-line__meta {
+  display: block;
+  margin-top: 4px;
+  padding-left: 2px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.5;
+}
+
+.fiber-row__picker {
+  flex: 1;
+  min-width: 0;
+}
+
+.input--pct {
+  width: 62px;
+  flex: none;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.fiber-row__pct {
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+}
+
+/* 原来 20px 宽的一行 × 号，热区太小；撑到 40×40（这一行本身就有 ~39px 高，不会撑高卡片） */
+.fiber-row__del {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 16px;
+  color: var(--color-faint);
+  flex: none;
+}
+
+/*
+ * 可点元素的热区下限。
+ *
+ * 原来这里是一行 11px 纯文字、没有任何 padding —— 实际可点高度约 16px，
+ * 在开发者工具里（375px 宽的模拟器缩放显示）只有十几个像素，鼠标基本点不中。
+ * 对照组：拍照入口高 64px、主按钮高 52px，所以那几个点得中、这个点不中。
+ * 凡是挂了 bindtap 的类都必须撑到 ≥ 40px，见 scripts/verify-miniprogram.js 的第 7 组。
+ */
+.fiber-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 44px;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-small);
+  color: var(--color-primary);
+}
+
+/* 成分占比合计 —— 用户填占比时唯一的实时反馈。
+ * 不平的时候必须一眼看见（占比没凑齐 = 算出来的单价是错的） */
+.fiber-sum {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+  line-height: 1.6;
+}
+
+.fiber-sum--ok {
+  color: var(--color-faint);
+}
+
+.fiber-sum--warn {
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-warn-bg);
+  color: var(--color-warn);
+  font-weight: var(--font-weight-semi);
+}
+
+/* 成分还是默认值时的提醒。填写成本越低，越容易被直接采纳 —— 必须写在脸上 */
+.fiber-note {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------- 克重 / 幅宽 */
+
+.spec {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  border: 1px dashed var(--color-line);
+}
+
+.spec__label {
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+}
+
+.spec__row {
+  display: flex;
+  margin-top: 6px;
+  gap: 8px;
+}
+
+.input--spec {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: var(--font-size-small);
+}
+
+.spec__note {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.6;
+}
+
+.spec__note--warn {
+  color: var(--color-warn);
+}
+
+/* ---------------------------------------------------------------- 品牌卡 */
+
+.brand-card {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--color-card-alt);
+  border: 1px solid var(--color-line-soft);
+}
+
+.brand-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-card__name {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+.brand-card__grid {
+  display: flex;
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.brand-card__scope {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+.brand-card__cell {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  text-align: center;
+}
+
+.brand-card__k {
+  display: block;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+.brand-card__v {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand);
+}
+
+.brand-card__line {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+  line-height: 1.6;
+}
+
+.brand-card__line--src {
+  color: var(--color-faint);
+}
+
+.brand-card__warn {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-line);
+  font-size: var(--font-size-tiny);
+  color: var(--color-warn);
+  line-height: 1.65;
+}
+
+/* 品牌没指定时，说明这个溢价率是"按档位估的"而不是"按该品牌年报算的" */
+.tier-notice {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-warn-bg);
+  color: var(--color-warn);
+  font-size: var(--font-size-tiny);
+  line-height: 1.65;
+}
+
+/* ---------------------------------------------------------------- 拍照识别水洗标 */
+
+.scan {
+  display: flex;
+  margin-bottom: 18px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-card-alt);
+}
+
+.scan__img {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-line-soft);
+}
+
+.scan__body {
+  flex: 1;
+  min-width: 0;
+  margin-left: 12px;
+}
+
+.scan__title {
+  display: block;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.scan__note {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.scan-note {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-warn-bg);
+}
+
+.scan-note .scan__note {
+  color: var(--color-warn);
+}
+
+.manual {
+  margin-bottom: 18px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.manual__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--color-card-alt);
+}
+
+.manual__title {
+  font-size: var(--font-size-small);
+  color: var(--color-text);
+}
+
+.manual__toggle {
+  font-size: var(--font-size-tiny);
+  color: var(--color-primary);
+}
+
+.manual__area {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-size: var(--font-size-small);
+  color: var(--color-text);
+  line-height: 1.7;
+  background: var(--color-card);
+}
+
+.line__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.6;
+}
+

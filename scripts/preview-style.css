@@ -1,0 +1,971 @@
+/* 小程序界面静态预览的样式 —— 由 scripts/build-preview.js 内联进 HTML。
+ * 色值全部走 CSS 变量（变量由生成器从 src/theme.js 注入），所以改主题这里会自动跟着变。
+ * 单位用 px 而非 rpx：这里是浏览器里的静态还原，不做真机适配。 */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 40px 24px 80px;
+  background: #EDEEF1;
+  color: #16181D;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- 文档头 */
+
+.doc { max-width: 1680px; margin: 0 auto 22px; }
+
+.doc h1 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.doc__lead {
+  margin: 0;
+  max-width: 900px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #4B5563;
+}
+
+.doc__lead code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  font-size: 12.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.doc__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.doc__meta span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  font-size: 12px;
+  color: #4B5563;
+}
+
+.doc__note {
+  max-width: 1680px;
+  margin: 0 auto 26px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-left: 4px solid var(--c-primary);
+  font-size: 13px;
+  line-height: 1.8;
+  color: #4B5563;
+}
+
+.doc__note strong { color: #16181D; }
+.doc__note em { font-style: normal; color: var(--c-primary); font-weight: 600; }
+
+/* ---------------------------------------------------------------- 手机框 */
+
+.frames {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 26px;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+.phone {
+  margin: 0;
+  width: 375px;
+  flex: none;
+}
+
+.phone__cap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.phone__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #16181D;
+}
+
+.phone__badge {
+  font-size: 11px;
+  color: #6B7280;
+}
+
+.screen {
+  width: 375px;
+  height: 812px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: var(--c-bg);
+  border: 1px solid #D8DADF;
+  box-shadow: 0 14px 34px rgba(16, 18, 24, 0.14);
+  position: relative;
+}
+
+/* 长页面在框内滚动，滚轮可看完整内容 */
+.screen .page {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.page { background: var(--c-bg); }
+
+/* ---------------------------------------------------------------- 渐变头 + 上翻白卡 */
+
+.head {
+  padding: 26px 20px 46px;
+  background: linear-gradient(150deg, var(--c-gradient-from) 0%, var(--c-gradient-mid) 52%, var(--c-gradient-to) 100%);
+}
+
+.head--tall { padding-bottom: 56px; }
+
+.head__brand {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.head__title {
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.head__slogan {
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.sheet {
+  margin-top: -34px;
+  padding: 22px 16px 26px;
+  border-radius: 22px 22px 0 0;
+  background: var(--c-card);
+  min-height: 320px;
+}
+
+/* ---------------------------------------------------------------- 表单 */
+
+.field { margin-top: 16px; }
+
+.field__label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-sub);
+}
+
+.input {
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line);
+  font-size: 14px;
+  color: var(--c-text);
+}
+
+.input--ph { color: var(--c-faint); }
+.input--grow { flex: 1; }
+
+.row { display: flex; align-items: center; gap: 8px; }
+
+/* ---------------------------------------------------------------- 按钮 */
+
+.btn {
+  margin-top: 16px;
+  padding: 13px;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn--primary {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
+}
+
+.btn--disabled {
+  color: #FFFFFF;
+  background: var(--c-faint);
+  opacity: 0.55;
+}
+
+.btn--ghost {
+  color: var(--c-sub);
+  background: transparent;
+  border: 1px solid var(--c-line);
+  font-weight: 400;
+}
+
+.btn--outline {
+  margin-top: 0;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-primary);
+  background: var(--c-primary-soft);
+  border: none;
+  flex: none;
+}
+
+.btn--sm { border-radius: 12px; }
+
+/* ---------------------------------------------------------------- 标签 */
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag--official { background: var(--c-good-bg); color: var(--c-good); }
+.tag--semi { background: var(--c-semi-bg); color: var(--c-semi); }
+.tag--estimate { background: var(--c-warn-bg); color: var(--c-warn); }
+.tag--flat { background: var(--c-flat-bg); color: var(--c-flat); }
+
+.disclaimer {
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--c-faint);
+}
+
+/* ---------------------------------------------------------------- 拍照入口 */
+
+.camera {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.camera__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  flex: none;
+}
+
+.camera__lens {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+}
+
+.camera__texts { flex: 1; margin-left: 12px; }
+
+.camera__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.camera__sub {
+  margin-top: 2px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chev {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--c-faint);
+  border-right: 2px solid var(--c-faint);
+  transform: rotate(45deg);
+  flex: none;
+}
+
+.chev--light { border-color: rgba(255, 255, 255, 0.7); }
+
+/* ---------------------------------------------------------------- 选项条 */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line);
+  font-size: 12.5px;
+  color: var(--c-sub);
+}
+
+.chip--on {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- 面料成分（用户只填这一项） */
+
+/* 版面按「数据类型」分组 —— 用户自己知道的 / 只有水洗标上有的 / 查表得的 */
+.group-head {
+  display: flex;
+  align-items: center;
+  margin: 26px 0 12px;
+}
+
+.group-head__no {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.group-head__title { flex: 1; font-size: 16px; font-weight: 600; color: var(--c-text); }
+.group-head__hint { font-size: 11px; color: var(--c-faint); }
+
+.field--lead { margin-top: 8px; }
+.field__label--strong { font-size: 15px; }
+
+.input--lead {
+  border-color: var(--c-primary);
+  background: var(--c-primary-ghost);
+}
+
+.field__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--c-faint);
+  line-height: 1.75;
+}
+
+.field__hint--ok { color: var(--c-primary-dark); }
+
+.scope-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  margin-top: 8px;
+  padding: 0 2px;
+}
+
+.scope-bar__text { font-size: 11px; color: var(--c-faint); }
+.scope-bar__btn { font-size: 11px; color: var(--c-primary); }
+
+.line {
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line-soft);
+}
+
+/* 系统替你计入的部位：只汇报、不可编辑。不说清"钱从哪来"，
+   用户没法判断这个数可不可信 */
+.auto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+.auto__k { flex: none; min-width: 44px; color: var(--c-sub); }
+.auto__v { flex: 1; color: var(--c-faint); }
+
+.auto__tag {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+
+.auto__cost { flex: none; color: var(--c-text); }
+.auto__cost--warn { color: var(--c-warn); }
+
+.input--amount {
+  flex: 1;
+  padding: 9px 11px;
+  font-size: 13px;
+}
+
+.line__unit { font-size: 13px; color: var(--c-sub); }
+
+.line__cost {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-primary);
+}
+
+/* 退路：改用面料名（元/米）估算。收成一行小字，不占版面但找得到 */
+.alt {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--c-sub);
+}
+
+/* 用量默认收起：只汇报系统替用户填的值，展开才有输入框 */
+.fold {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.fold__k { font-size: 11px; color: var(--c-faint); }
+.fold__v { flex: 1; margin-left: 8px; font-size: 11px; color: var(--c-sub); }
+.fold__cost { margin-left: 8px; font-size: 13px; font-weight: 600; color: var(--c-primary); }
+
+.fold__edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 40px;
+  min-width: 44px;
+  margin: -12px -4px -12px 0;
+  padding-right: 4px;
+  font-size: 11px;
+  color: var(--c-primary);
+}
+
+/* picker */
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  font-size: 12.5px;
+  color: var(--c-text);
+}
+
+.picker span:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.picker--sm { margin-top: 0; padding: 8px 10px; }
+
+/* 混纺成分 */
+/* 一行成分 = 选择行 + 这一行的价格出处（出处独占一行，故包一层） */
+.fiber-line { margin-top: 8px; }
+
+.fiber-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 这条成分的单价与出处。字小、对比低，不抢输入项的注意力，
+   但用户想核对"这个价哪来的"时必须一眼找得到 */
+.fiber-line__meta {
+  display: block;
+  margin-top: 4px;
+  padding-left: 2px;
+  font-size: 11px;
+  color: var(--c-faint);
+  line-height: 1.5;
+}
+
+.fiber-row .picker { flex: 1; min-width: 0; margin-top: 0; }
+
+.input--pct {
+  width: 62px;
+  flex: none;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 12.5px;
+}
+
+.fiber-row__pct { font-size: 12.5px; color: var(--c-sub); }
+
+/* 热区 ≥ 40px：原来是一行 11px 纯文字 / 20px 宽的 ×，缩放着看根本点不中 */
+.fiber-row__del {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 16px;
+  color: var(--c-faint);
+  flex: none;
+}
+
+.fiber-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 44px;
+  border: 1px dashed var(--c-line);
+  border-radius: 12px;
+  font-size: 12.5px;
+  color: var(--c-primary);
+}
+
+/* 成分占比合计 —— 不齐时是醒目底色（占比没凑齐 = 算出来的单价是错的，不让提交） */
+.fiber-sum {
+  display: block;
+  margin-top: 6px;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.fiber-sum--ok { color: var(--c-faint); }
+
+.fiber-sum--warn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--c-warn-bg);
+  color: var(--c-warn);
+  font-weight: 600;
+}
+
+/* 用料量提示（按克填报：默认品类典型克重，可改实测值） */
+.line__hint {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--c-faint);
+}
+
+.line__hint--warn { color: var(--c-warn); }
+
+/* 水洗标识别结果 */
+.scan {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+}
+
+.scan__title {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.scan__note {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--c-sub);
+}
+
+.scan__note--warn { color: var(--c-warn); }
+
+/* ---------------------------------------------------------------- 品牌卡 */
+
+.brand-card {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line-soft);
+}
+
+.brand-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-card__name { font-size: 14px; font-weight: 600; color: var(--c-text); }
+
+.brand-card__grid { display: flex; gap: 8px; margin-top: 12px; }
+
+.brand-card__cell {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 12px;
+  background: var(--c-card);
+  text-align: center;
+}
+
+.brand-card__k { display: block; font-size: 10.5px; color: var(--c-faint); }
+
+.brand-card__v {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-brand);
+}
+
+.brand-card__line {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--c-sub);
+}
+
+.brand-card__line--src { color: var(--c-faint); }
+
+.brand-card__warn {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-line);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--c-warn);
+}
+
+/* ---------------------------------------------------------------- 材料成本预估 */
+
+.preview {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--c-primary-ghost);
+  border: 1px solid var(--c-primary-soft);
+}
+
+.preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preview__label { font-size: 13px; color: var(--c-primary); }
+
+.preview__value {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.preview__hint { margin-top: 4px; font-size: 11px; color: var(--c-sub); }
+
+.preview__source {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--c-faint);
+}
+
+/* ---------------------------------------------------------------- 结果页 */
+
+.content { padding: 16px; }
+
+.range-card {
+  padding: 22px 18px;
+  border-radius: 18px;
+  background: linear-gradient(150deg, var(--c-gradient-from) 0%, var(--c-gradient-mid) 55%, var(--c-gradient-to) 100%);
+  color: #FFFFFF;
+}
+
+.range-card__label { font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+
+.range-card__value {
+  margin-top: 8px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.range-card__mid { margin-top: 6px; font-size: 12px; color: rgba(255, 255, 255, 0.78); }
+
+.range-card__meta {
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.verdict {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.verdict--warn { background: var(--c-warn-bg); border: 1px solid var(--c-warn); }
+.verdict--good { background: var(--c-good-bg); border: 1px solid var(--c-good); }
+.verdict--flat { background: var(--c-flat-bg); border: 1px solid var(--c-line); }
+
+.verdict__title { font-size: 14px; font-weight: 600; color: var(--c-text); }
+.verdict__detail { margin-top: 4px; font-size: 12px; color: var(--c-sub); }
+
+.card {
+  margin-top: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line-soft);
+}
+
+.card__title {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.card__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--c-sub);
+}
+
+.card__hint--warn { color: var(--c-warn); }
+
+/* 五段条 */
+.bar {
+  display: flex;
+  height: 10px;
+  margin-top: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--c-line-soft);
+}
+
+.bar__seg { height: 100%; }
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 12px 0 4px;
+  font-size: 12px;
+  color: var(--c-sub);
+}
+
+.total__value { font-size: 20px; font-weight: 700; color: var(--c-text); }
+
+.part {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.part__dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.part__texts { flex: 1; }
+.part__label { display: block; font-size: 13px; color: var(--c-text); }
+.part__hint { display: block; margin-top: 2px; font-size: 10.5px; color: var(--c-faint); }
+.part__nums { text-align: right; }
+.part__value { display: block; font-size: 13px; font-weight: 600; color: var(--c-text); }
+.part__pct { display: block; margin-top: 2px; font-size: 10.5px; color: var(--c-faint); }
+
+/* 滑块 */
+.slider-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+.slider-head__value { font-size: 22px; font-weight: 700; color: var(--c-overflow); }
+.slider-head__sub { font-size: 12px; color: var(--c-sub); }
+
+.slider { margin-top: 12px; }
+
+.slider__track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--c-line);
+}
+
+.slider__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--c-overflow);
+}
+
+.slider__block {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid var(--c-overflow);
+  box-shadow: 0 2px 6px rgba(16, 18, 24, 0.18);
+}
+
+.slider-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: var(--c-faint);
+}
+
+/* 逐条用料价格 */
+.pline {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-line-soft);
+}
+
+.pline:last-child { border-bottom: none; }
+
+.pline__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.pline__label { font-size: 13px; font-weight: 600; color: var(--c-text); }
+.pline__cost { font-size: 13px; font-weight: 600; color: var(--c-primary); }
+
+.pline__price { margin-top: 4px; font-size: 11px; color: var(--c-sub); }
+
+.pline__note {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--c-faint);
+}
+
+.pline__note--warn { color: var(--c-warn); }
+.pline__note--src { color: var(--c-sub); }
+
+.pline .tag { margin-top: 6px; }
+
+/* 系数表 */
+.coeff-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--c-line-soft);
+  font-size: 12.5px;
+}
+
+.coeff-row:first-of-type { border-top: none; }
+.coeff-row span:first-child { color: var(--c-sub); flex: none; }
+.coeff-row span:last-child { color: var(--c-text); font-weight: 600; text-align: right; }
+
+/* ---------------------------------------------------------------- 我的 */
+
+.stat-grid { display: flex; gap: 10px; }
+
+.stat {
+  flex: 1;
+  padding: 14px 8px;
+  border-radius: 14px;
+  background: var(--c-card-alt);
+  border: 1px solid var(--c-line-soft);
+  text-align: center;
+}
+
+.stat__n {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.stat__k { display: block; margin-top: 4px; font-size: 11px; color: var(--c-sub); }
+
+.seg {
+  display: flex;
+  height: 8px;
+  margin-top: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--c-line-soft);
+}
+
+.seg__part { height: 100%; }
+
+.seg__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.seg__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--c-sub);
+}
+
+.seg__dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.empty-record {
+  padding: 26px 0;
+  text-align: center;
+}
+
+.empty-record__title { display: block; font-size: 13px; color: var(--c-sub); }
+.empty-record__hint { display: block; margin-top: 6px; font-size: 11px; color: var(--c-faint); }
+
+/* ---------------------------------------------------------------- 深色模式（只影响文档外壳，App 本身是浅色设计） */
+
+@media (prefers-color-scheme: dark) {
+  body { background: #14161B; color: #E8EAED; }
+  .doc h1 { color: #E8EAED; }
+  .doc__lead { color: #A6ACB8; }
+  .doc__lead code { background: #1E2128; border-color: #2C3038; color: #D6DAE2; }
+  .doc__meta span { background: #1E2128; border-color: #2C3038; color: #A6ACB8; }
+  .doc__note { background: #1E2128; border-color: #2C3038; color: #A6ACB8; }
+  .doc__note strong { color: #E8EAED; }
+  .phone__name { color: #E8EAED; }
+  .phone__badge { color: #9AA1AD; }
+}

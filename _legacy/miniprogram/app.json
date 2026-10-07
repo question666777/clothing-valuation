@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/valuation/valuation"
+  ],
+  "window": {
+    "navigationBarTitleText": "看光光",
+    "navigationBarBackgroundColor": "#1f2329",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f6f8",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

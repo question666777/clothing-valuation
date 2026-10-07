@@ -1,0 +1,332 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.content {
+  padding: 16px;
+  padding-bottom: 48px;
+}
+
+/* ---------------------------------------------------------------- 空态 */
+
+.empty {
+  padding: 80px 32px;
+  text-align: center;
+}
+
+.empty__title {
+  display: block;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+.empty__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------- 价值区间 */
+
+.range-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.range-card__label {
+  display: block;
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+}
+
+.range-card__value {
+  display: block;
+  margin-top: 8px;
+  font-size: 30px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.range-card__mid {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+}
+
+.range-card__meta {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+/* ---------------------------------------------------------------- 结论条 */
+
+.verdict {
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.verdict--warn {
+  background: var(--color-warn-bg);
+}
+
+.verdict--warn .verdict__title,
+.verdict--warn .verdict__detail {
+  color: var(--color-warn);
+}
+
+.verdict--good {
+  background: var(--color-good-bg);
+}
+
+.verdict--good .verdict__title,
+.verdict--good .verdict__detail {
+  color: var(--color-good);
+}
+
+.verdict--flat {
+  background: var(--color-flat-bg);
+}
+
+.verdict--flat .verdict__title,
+.verdict--flat .verdict__detail {
+  color: var(--color-flat);
+}
+
+.verdict__title {
+  display: block;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+}
+
+.verdict__detail {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-small);
+}
+
+/* ---------------------------------------------------------------- 滑块 */
+
+.slider-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.slider-head__value {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-overflow);
+}
+
+.slider-head__sub {
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+}
+
+.slider {
+  width: 100%;
+  margin: 8px 0 0;
+}
+
+.slider-scale {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider-scale__item {
+  font-size: 11px;
+  color: var(--color-faint);
+}
+
+/* ---------------------------------------------------------------- 价格来源 */
+
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price-row__label {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.price-row__value {
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.price-spec {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+}
+
+.price-note {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+  line-height: 1.6;
+}
+
+.source-box {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-line);
+}
+
+.source-box__title {
+  display: block;
+  font-size: 12px;
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+.source-box__line {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+}
+
+.source-box__url {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--color-faint);
+}
+
+.src-item {
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--color-line-soft);
+}
+
+.src-item__label {
+  display: block;
+  font-size: var(--font-size-tiny);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.src-item__meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--color-sub);
+  line-height: 1.5;
+}
+
+.src-item__url {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--color-faint);
+  word-break: break-all;
+}
+
+/* ---------------------------------------------------------------- 系数明细 */
+
+.coeff-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.coeff-row__label {
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+}
+
+.coeff-row__value {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+/* ---------------------------------------------------------------- 警示 */
+
+.warn-box {
+  background: var(--color-warn-bg);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.warn-box__text {
+  font-size: var(--font-size-small);
+  color: var(--color-warn);
+}
+
+/* ---------------------------------------------------------------- 逐条用料价格 */
+
+.pline {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-line-soft);
+}
+
+.pline:last-of-type {
+  border-bottom: none;
+}
+
+.pline__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.pline__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+.pline__cost {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-primary);
+}
+
+.pline__price {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-sub);
+}
+
+.pline__note {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  line-height: 1.6;
+}
+
+.pline__note--warn {
+  color: var(--color-warn);
+}
+
+.pline__note--src {
+  color: var(--color-sub);
+}
+
+.card__hint--warn {
+  color: var(--color-warn);
+}
+

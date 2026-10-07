@@ -1,0 +1,56 @@
+.hero {
+  padding: 72rpx 48rpx 40rpx;
+}
+
+.hero-title {
+  font-size: 52rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+}
+
+.hero-sub {
+  margin-top: 12rpx;
+  color: #6b7178;
+  font-size: 28rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 96rpx;
+  border-bottom: 2rpx solid #eef0f3;
+}
+
+.field:last-child {
+  border-bottom: none;
+}
+
+.field-label {
+  color: #4c5257;
+  flex: 0 0 220rpx;
+}
+
+.field-input {
+  flex: 1;
+  text-align: right;
+}
+
+.field-picker {
+  color: #1f2329;
+  text-align: right;
+}
+
+.actions {
+  padding: 16rpx 24rpx 8rpx;
+}
+
+.actions .btn-ghost {
+  margin-top: 20rpx;
+}

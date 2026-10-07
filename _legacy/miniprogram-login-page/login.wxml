@@ -1,0 +1,76 @@
+<view class="page">
+  <view class="brand">
+    <view class="halo halo--a"></view>
+    <view class="halo halo--b"></view>
+
+    <view class="brand__inner">
+      <view class="mark">
+        <view class="mark__scan"></view>
+      </view>
+      <text class="brand__name">看光光</text>
+      <text class="brand__slogan">拍一下，看清它到底值多少钱</text>
+    </view>
+  </view>
+
+  <view class="sheet">
+    <text class="sheet__title">手机号登录</text>
+    <text class="sheet__subtitle">未注册的手机号将自动创建账号</text>
+
+    <view class="field-box {{error && !phoneValid ? 'field-box--error' : ''}}">
+      <view class="prefix">
+        <text class="prefix__text">+86</text>
+        <view class="prefix__divider"></view>
+      </view>
+      <input
+        class="field-box__input"
+        type="number"
+        value="{{phone}}"
+        maxlength="11"
+        placeholder="请输入手机号"
+        placeholder-class="input__ph"
+        bindinput="onPhoneInput"
+      />
+    </view>
+
+    <view class="field-box field-box--code">
+      <input
+        class="field-box__input"
+        type="number"
+        value="{{code}}"
+        maxlength="6"
+        placeholder="6 位验证码"
+        placeholder-class="input__ph"
+        bindinput="onCodeInput"
+      />
+      <text class="code-btn {{canSendCode ? '' : 'code-btn--off'}}" bindtap="onSendCode">{{codeBtnText}}</text>
+    </view>
+
+    <view class="error-row" wx:if="{{error}}">
+      <text class="error-row__text">{{error}}</text>
+    </view>
+
+    <view class="agree-row" bindtap="onToggleAgree">
+      <view class="checkbox {{agreed ? 'checkbox--on' : ''}}">
+        <view class="checkbox__tick" wx:if="{{agreed}}"></view>
+      </view>
+      <text class="agree-row__text">我已阅读并同意<text class="agree-row__link" catchtap="onOpenAgreement">《用户协议》</text>与<text class="agree-row__link" catchtap="onOpenAgreement">《隐私政策》</text></text>
+    </view>
+
+    <view class="btn btn--primary {{canSubmit ? '' : 'btn--disabled'}}" hover-class="btn--pressed" bindtap="onSubmit">
+      {{loading ? '处理中…' : '登录 / 注册'}}
+    </view>
+
+    <view class="or">
+      <view class="or__line"></view>
+      <text class="or__text">或</text>
+      <view class="or__line"></view>
+    </view>
+
+    <view class="guest" hover-class="guest--hover" bindtap="onGuestEnter">
+      <view class="guest__lens"></view>
+      <text class="guest__text">先随便看看（游客模式）</text>
+    </view>
+
+    <text class="foot-hint">账号服务尚未接入，当前可直接使用游客模式，数据仅保存在本机</text>
+  </view>
+</view>

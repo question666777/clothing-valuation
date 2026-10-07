@@ -1,0 +1,33 @@
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+/* 热区 ≥ 40px：芯片是主要录入方式，点不中就等于录不进去 */
+.chip {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.chip--on {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.chip__label {
+  font-size: 13px;
+  color: var(--color-sub);
+}
+
+.chip--on .chip__label {
+  color: var(--color-primary);
+  font-weight: 600;
+}

@@ -1,0 +1,11 @@
+<view class="chips">
+  <view
+    wx:for="{{options}}"
+    wx:key="key"
+    class="chip {{item.key === value ? 'chip--on' : ''}}"
+    data-key="{{item.key}}"
+    bindtap="onTap"
+  >
+    <text class="chip__label">{{item.label}}</text>
+  </view>
+</view>

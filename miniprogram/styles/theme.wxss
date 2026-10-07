@@ -1,0 +1,65 @@
+/* [auto-generated] 由 scripts/sync-miniprogram.js 从 src/theme.js 生成，勿手改。
+ * 真源在 /src/theme.js，改真源后重跑：node scripts/sync-miniprogram.js */
+
+page {
+  --color-bg: #F4F5F7;
+  --color-bg-deep: #12141A;
+  --color-card: #FFFFFF;
+  --color-card-alt: #FAFAFB;
+  --color-text: #16181D;
+  --color-sub: #6B7280;
+  --color-faint: #9CA3AF;
+  --color-line: #E5E7EB;
+  --color-line-soft: #F1F2F4;
+  --color-primary: #C75B39;
+  --color-primary-dark: #A8472A;
+  --color-primary-soft: #FBEDE8;
+  --color-primary-ghost: #FFF7F3;
+  --color-accent: #F0A868;
+  --color-gradient-from: #1E222C;
+  --color-gradient-mid: #3A2A26;
+  --color-gradient-to: #C75B39;
+  --color-material: #C75B39;
+  --color-processing: #E0A458;
+  --color-design: #5B8DEF;
+  --color-brand: #8C6BB1;
+  --color-overflow: #4A9C8C;
+  --color-warn: #B45309;
+  --color-warn-bg: #FEF3C7;
+  --color-semi: #3B5BDB;
+  --color-semi-bg: #E0EAFF;
+  --color-good: #15803D;
+  --color-good-bg: #DCFCE7;
+  --color-flat: #4B5563;
+  --color-flat-bg: #F3F4F6;
+  --font-size-display: 34px;
+  --font-size-h1: 26px;
+  --font-size-h2: 20px;
+  --font-size-h3: 17px;
+  --font-size-body: 15px;
+  --font-size-small: 13px;
+  --font-size-tiny: 11px;
+  --font-weight-bold: 700;
+  --font-weight-semi: 600;
+  --font-weight-normal: 400;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-huge: 44px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-xxl: 30px;
+  --radius-pill: 999px;
+  --shadow-card: 0px 2px 10px rgba(11, 13, 18, 0.06);
+  --shadow-float: 0px 8px 20px rgba(11, 13, 18, 0.14);
+  --shadow-bar: 0px -2px 12px rgba(11, 13, 18, 0.06);
+}

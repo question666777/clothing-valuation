@@ -1,0 +1,231 @@
+@import "./styles/theme.wxss";
+
+page {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+input,
+button,
+scroll-view {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------------- 渐变头 + 上翻白卡 */
+
+.head {
+  padding: 40px 16px 58px;
+  background: linear-gradient(135deg,
+    var(--color-gradient-from) 0%,
+    var(--color-gradient-mid) 60%,
+    var(--color-gradient-to) 100%);
+}
+
+.head--tall {
+  padding-top: 56px;
+}
+
+.head__brand {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  color: #FFFFFF;
+  letter-spacing: 3px;
+}
+
+.head__title {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  color: #FFFFFF;
+  line-height: 1.25;
+}
+
+.head__slogan {
+  margin-top: 4px;
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+}
+
+.sheet {
+  margin-top: -34px;
+  background: var(--color-card);
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+  padding: 24px 16px 32px;
+}
+
+/* ---------------------------------------------------------------- 表单 */
+
+.field {
+  margin-top: 16px;
+}
+
+.field__label {
+  display: block;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.field__row {
+  display: flex;
+  margin: 0 -4px;
+}
+
+.field__col {
+  flex: 1;
+  padding: 0 4px;
+}
+
+.input {
+  height: 50px;
+  background: var(--color-card-alt);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 0 16px;
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+}
+
+.input__ph {
+  color: var(--color-faint);
+}
+
+/* ---------------------------------------------------------------- 卡片 */
+
+.card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.card + .card {
+  margin-top: 12px;
+}
+
+.card__title {
+  display: block;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text);
+}
+
+.card__hint {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-small);
+  color: var(--color-sub);
+  line-height: 1.5;
+}
+
+.card--soft {
+  background: var(--color-primary-ghost);
+  border: 1px solid var(--color-primary-soft);
+}
+
+.section-label {
+  display: block;
+  margin: 20px 4px 8px;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-sub);
+}
+
+/* ---------------------------------------------------------------- 按钮 */
+
+.btn {
+  margin-top: 24px;
+  height: 52px;
+  line-height: 52px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semi);
+  letter-spacing: 1px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.btn--ghost {
+  background: var(--color-primary-ghost);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+.btn--disabled {
+  background: var(--color-line);
+  color: var(--color-faint);
+  box-shadow: none;
+}
+
+.btn--pressed {
+  opacity: 0.86;
+}
+
+/* ---------------------------------------------------------------- 数据等级徽章 */
+
+.tag {
+  display: inline-block;
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-semi);
+}
+
+.tag--official {
+  background: var(--color-good-bg);
+  color: var(--color-good);
+}
+
+.tag--semi {
+  background: var(--color-semi-bg);
+  color: var(--color-semi);
+}
+
+.tag--estimate {
+  background: var(--color-warn-bg);
+  color: var(--color-warn);
+}
+
+.tag--flat {
+  background: var(--color-flat-bg);
+  color: var(--color-flat);
+}
+
+/* ---------------------------------------------------------------- 提示条 */
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  background: var(--color-warn-bg);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.notice__text {
+  flex: 1;
+  font-size: var(--font-size-tiny);
+  color: var(--color-warn);
+  line-height: 1.5;
+}
+
+.disclaimer {
+  display: block;
+  margin-top: 16px;
+  font-size: var(--font-size-tiny);
+  color: var(--color-faint);
+  text-align: center;
+  line-height: 1.5;
+}

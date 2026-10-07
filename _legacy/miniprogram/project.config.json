@@ -1,0 +1,15 @@
+{
+  "appid": "touristappid",
+  "projectname": "看光光",
+  "compileType": "miniprogram",
+  "libVersion": "3.5.0",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": false,
+    "ignoreDevUnusedFiles": true
+  },
+  "condition": {}
+}

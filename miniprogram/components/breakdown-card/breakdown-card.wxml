@@ -1,0 +1,22 @@
+<view class="bd">
+  <text class="bd__title">钱花在哪</text>
+
+  <view class="bd-part" wx:for="{{parts}}" wx:key="key">
+    <view class="bd-part__head">
+      <text class="bd-part__label">{{item.label}}</text>
+      <text class="bd-part__value">¥{{item.value}}</text>
+    </view>
+    <view class="bd-part__bar">
+      <view class="bd-part__fill" style="width: {{item.percent}}%; background: {{item.color}};"></view>
+    </view>
+    <view class="bd-part__foot">
+      <text class="bd-part__hint">{{item.hint}}</text>
+      <text class="bd-part__percent">{{item.percent}}%</text>
+    </view>
+  </view>
+
+  <view class="bd-total">
+    <text class="bd-total__label">合计</text>
+    <text class="bd-total__value">¥{{total}}</text>
+  </view>
+</view>

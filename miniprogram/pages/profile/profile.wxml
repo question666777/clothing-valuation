@@ -1,0 +1,130 @@
+<view class="page">
+  <view class="hero">
+    <block wx:if="{{loggedIn}}">
+      <view class="avatar">
+        <image wx:if="{{avatarUrl}}" class="avatar__img" src="{{avatarUrl}}" mode="aspectFill" />
+        <block wx:else>
+          <view class="avatar__head"></view>
+          <view class="avatar__body"></view>
+        </block>
+      </view>
+      <view class="hero__text">
+        <text class="hero__name">{{userName}}</text>
+        <view class="hero__tag">
+          <text class="hero__tag-text">微信登录 · 本机数据未同步</text>
+        </view>
+      </view>
+      <view class="hero__action" hover-class="hero__action--hover" bindtap="onLogout">
+        <text class="hero__action-text">退出</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="avatar">
+        <view class="avatar__head"></view>
+        <view class="avatar__body"></view>
+      </view>
+      <view class="hero__text">
+        <text class="hero__name">游客</text>
+        <view class="hero__tag">
+          <text class="hero__tag-text">登录后可同步头像昵称</text>
+        </view>
+      </view>
+      <view class="hero__action hero__action--primary" hover-class="hero__action--hover" bindtap="onLogin">
+        <text class="hero__action-text">微信登录</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="overview">
+    <view class="stat">
+      <text class="stat__value">{{fabricCount}}</text>
+      <text class="stat__label">面料库</text>
+    </view>
+    <view class="stat__divider"></view>
+    <view class="stat">
+      <text class="stat__value">{{categoryCount}}</text>
+      <text class="stat__label">覆盖品类</text>
+    </view>
+    <view class="stat__divider"></view>
+    <view class="stat">
+      <text class="stat__value stat__value--accent">{{officialCount}}</text>
+      <text class="stat__label">官方报价</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">数据可信度</text>
+      <text class="section__hint">共 {{fabricCount}} 种面料，按出处分级</text>
+    </view>
+    <view class="section__body">
+      <view class="grade-bar">
+        <view
+          class="grade-bar__seg"
+          wx:for="{{gradeSegments}}"
+          wx:key="key"
+          style="width: {{item.percent}}%; background: {{item.color}};"
+        ></view>
+      </view>
+      <view class="legend">
+        <view class="legend__item" wx:for="{{gradeSegments}}" wx:key="key">
+          <view class="legend__dot" style="background: {{item.color}};"></view>
+          <text class="legend__text">{{item.label}} {{item.count}}</text>
+        </view>
+      </view>
+      <text class="snapshot">价格表更新：{{snapshotUpdatedAt}}　·　已登记数据源 {{sourceCount}} 个</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">我的估价偏好</text>
+    </view>
+    <view class="section__body">
+      <view class="row" wx:for="{{prefRows}}" wx:key="label">
+        <text class="row__label">{{item.label}}</text>
+        <text class="row__value">{{item.value}}</text>
+      </view>
+      <text class="tip">溢出比例在结果页可随时拖动调整，这里只是每次打开时的默认值</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">我的记录</text>
+    </view>
+    <view class="section__body">
+      <view class="empty">
+        <view class="empty__clock"></view>
+        <text class="empty__text">{{emptyText}}</text>
+        <text class="empty__sub">{{emptySub}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">关于</text>
+    </view>
+    <view class="section__body">
+      <view
+        class="row row--tap"
+        wx:for="{{aboutRows}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onRowTap"
+        hover-class="{{item.chevron ? 'row--hover' : ''}}"
+      >
+        <text class="row__label">{{item.label}}</text>
+        <text class="row__value">{{item.value}}</text>
+        <view class="chev" wx:if="{{item.chevron}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="exit" hover-class="exit--hover" bindtap="onResetPrefs">
+    <text class="exit__text">清空本机偏好</text>
+  </view>
+
+  <text class="disclaimer">{{disclaimer}}</text>
+</view>

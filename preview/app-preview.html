@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>看光光 — 界面预览</title>
+<style>
+  :root {
+    --bg: #F4F5F7;
+    --card: #FFFFFF;
+    --card-alt: #FAFAFB;
+    --text: #16181D;
+    --sub: #6B7280;
+    --faint: #9CA3AF;
+    --line: #E5E7EB;
+    --line-soft: #F1F2F4;
+    --primary: #C75B39;
+    --primary-dark: #A8472A;
+    --primary-soft: #FBEDE8;
+    --primary-ghost: #FFF7F3;
+    --accent: #F0A868;
+    --g-from: #1E222C;
+    --g-mid: #3A2A26;
+    --g-to: #C75B39;
+    --material: #C75B39;
+    --processing: #E0A458;
+    --design: #5B8DEF;
+    --brand: #8C6BB1;
+    --overflow: #4A9C8C;
+    --warn: #B45309;
+    --warn-bg: #FEF3C7;
+    --good: #15803D;
+    --good-bg: #DCFCE7;
+    --flat: #4B5563;
+    --flat-bg: #F3F4F6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 44px 24px 80px;
+    background: #EDEEF1;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-head { max-width: 1240px; margin: 0 auto 40px; }
+  .page-head h1 { margin: 0; font-size: 27px; letter-spacing: 1px; }
+  .page-head p { margin: 10px 0 0; color: var(--sub); font-size: 14px; line-height: 1.7; }
+  .page-head .tags { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .page-head .tags span {
+    font-size: 12px; padding: 5px 11px; border-radius: 999px;
+    background: #fff; color: var(--sub); border: 1px solid var(--line);
+  }
+
+  h2.section {
+    max-width: 1240px; margin: 54px auto 20px;
+    font-size: 15px; color: var(--sub); font-weight: 600; letter-spacing: 1px;
+  }
+  h2.section:first-of-type { margin-top: 0; }
+
+  /* ---------- 图标展示 ---------- */
+  .icon-row {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start;
+  }
+  .icon-item { text-align: center; }
+  .icon-item img { display: block; }
+  .icon-sq {
+    width: 128px; height: 128px; border-radius: 30px;
+    box-shadow: 0 10px 26px rgba(18,20,26,.22);
+  }
+  .icon-circle {
+    width: 128px; height: 128px; border-radius: 50%;
+    box-shadow: 0 10px 26px rgba(18,20,26,.22);
+  }
+  .splash-box {
+    width: 128px; height: 128px; border-radius: 26px;
+    background: linear-gradient(135deg, var(--g-from), var(--g-mid), var(--g-to));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 26px rgba(18,20,26,.22);
+  }
+  .splash-box img { width: 76px; height: 76px; }
+  .icon-cap { margin-top: 11px; font-size: 12px; color: var(--sub); line-height: 1.6; }
+
+  /* ---------- 手机框 ---------- */
+  .screens {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; gap: 26px; flex-wrap: wrap; justify-content: flex-start;
+  }
+  .phone-wrap { width: 375px; }
+  .phone-cap {
+    margin-bottom: 12px; font-size: 13px; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .phone-cap em {
+    font-style: normal; font-size: 11px; font-weight: 400;
+    color: var(--sub); background: #fff; border: 1px solid var(--line);
+    padding: 2px 8px; border-radius: 999px;
+  }
+  .phone {
+    width: 375px; height: 800px; border-radius: 40px;
+    background: var(--bg); overflow: hidden;
+    border: 9px solid #14161C;
+    box-shadow: 0 22px 48px rgba(18,20,26,.28);
+    position: relative;
+  }
+  .notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 128px; height: 24px; background: #14161C;
+    border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+    z-index: 30;
+  }
+  .screen {
+    height: 100%; overflow-y: auto; overflow-x: hidden;
+    background: var(--bg); position: relative;
+  }
+  .screen::-webkit-scrollbar { width: 0; }
+
+  /* 渐变品牌头 */
+  .brand-head {
+    background: linear-gradient(135deg, var(--g-from) 0%, var(--g-mid) 55%, var(--g-to) 100%);
+    position: relative; overflow: hidden;
+  }
+  .halo { position: absolute; border-radius: 50%; background: rgba(255,255,255,.08); }
+  .halo-a { width: 200px; height: 200px; top: -60px; right: -50px; }
+  .halo-b { width: 130px; height: 130px; bottom: -40px; left: -30px; }
+
+  /* Tab 栏 */
+  .tabbar {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 62px;
+    background: #fff; border-top: 1px solid var(--line-soft);
+    display: flex; z-index: 20;
+  }
+  .tab {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3px;
+    font-size: 11px; font-weight: 600; color: var(--faint);
+  }
+  .tab.on { color: var(--primary); }
+  .tab .ic { width: 21px; height: 21px; }
+
+  /* ---------- 登录页 ---------- */
+  .login-brand { padding: 78px 24px 74px; text-align: center; }
+  .mark {
+    width: 58px; height: 58px; border-radius: 22px; margin: 0 auto;
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.24);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-name {
+    margin-top: 16px; font-size: 34px; font-weight: 700; color: #fff; letter-spacing: 4px;
+  }
+  .brand-slogan { margin-top: 8px; font-size: 13px; color: rgba(255,255,255,.78); }
+
+  .sheet {
+    background: #fff; border-top-left-radius: 30px; border-top-right-radius: 30px;
+    padding: 32px 24px 28px; position: relative; z-index: 5;
+  }
+  .sheet.overlap { margin-top: -42px; }
+  .sheet-title { font-size: 26px; font-weight: 700; }
+  .sheet-sub { margin-top: 5px; font-size: 13px; color: var(--sub); }
+
+  .field {
+    display: flex; align-items: center; height: 54px;
+    background: var(--card-alt); border: 1px solid var(--line);
+    border-radius: 12px; padding: 0 16px; margin-top: 12px;
+  }
+  .prefix { display: flex; align-items: center; }
+  .prefix b { font-size: 15px; font-weight: 600; }
+  .prefix i { display: block; width: 1px; height: 18px; background: var(--line); margin: 0 12px; }
+  .field .ph { flex: 1; font-size: 15px; color: var(--faint); }
+  .field .val { flex: 1; font-size: 15px; }
+  .field .act { font-size: 13px; font-weight: 600; color: var(--primary); }
+  .field .act.off { color: var(--faint); font-weight: 400; }
+
+  .agree { display: flex; gap: 8px; margin-top: 16px; align-items: flex-start; }
+  .cb {
+    width: 17px; height: 17px; border-radius: 5px; border: 1.5px solid var(--line);
+    flex: none; margin-top: 1px;
+  }
+  .cb.on { background: var(--primary); border-color: var(--primary); position: relative; }
+  .cb.on::after {
+    content: ""; position: absolute; left: 4px; top: 1px;
+    width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .agree p { margin: 0; font-size: 11px; color: var(--sub); line-height: 1.65; }
+  .agree p a { color: var(--primary); text-decoration: none; }
+
+  .btn-main {
+    height: 52px; border-radius: 999px; background: var(--primary); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 600; letter-spacing: 1px; margin-top: 16px;
+    box-shadow: 0 2px 10px rgba(11,13,18,.06);
+  }
+  .btn-main.off { background: #D8DADF; color: #fff; }
+
+  .divider { display: flex; align-items: center; margin: 24px 0; }
+  .divider span { flex: 1; height: 1px; background: var(--line-soft); }
+  .divider em { font-style: normal; font-size: 11px; color: var(--faint); margin: 0 12px; }
+
+  .btn-ghost {
+    height: 50px; border-radius: 999px; display: flex; align-items: center;
+    justify-content: center; gap: 8px; font-size: 15px; font-weight: 600;
+    color: var(--primary); background: var(--primary-ghost);
+    border: 1px solid rgba(199,91,57,.35);
+  }
+  .tip { margin-top: 16px; font-size: 11px; color: var(--faint); text-align: center; line-height: 1.6; }
+
+  /* ---------- 首页 ---------- */
+  .home-head { padding: 58px 16px 56px; }
+  .home-brand { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: 3px; }
+  .home-slogan { margin-top: 4px; font-size: 13px; color: rgba(255,255,255,.78); }
+  .camera {
+    margin-top: 24px; display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 16px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22);
+  }
+  .camera .ci {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(255,255,255,.18);
+    display: flex; align-items: center; justify-content: center; flex: none;
+  }
+  .camera .ct { flex: 1; }
+  .camera .ct b { display: block; font-size: 15px; font-weight: 600; color: #fff; }
+  .camera .ct s { display: block; margin-top: 2px; font-size: 11px; color: rgba(255,255,255,.7); text-decoration: none; }
+
+  .label { font-size: 13px; font-weight: 600; margin: 18px 0 8px; }
+  .input {
+    height: 50px; background: var(--card-alt); border: 1px solid var(--line);
+    border-radius: 12px; padding: 0 16px; font-size: 15px; color: var(--faint);
+    display: flex; align-items: center;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 12px; padding: 7px 13px; border-radius: 999px;
+    background: var(--card-alt); border: 1px solid var(--line); color: var(--sub);
+  }
+  .chip.on { background: var(--primary-soft); border-color: rgba(199,91,57,.4); color: var(--primary); font-weight: 600; }
+  .row2 { display: flex; gap: 16px; }
+  .row2 > div { flex: 1; }
+
+  .est {
+    margin-top: 24px; padding: 16px; border-radius: 16px;
+    background: var(--primary-ghost); border: 1px solid rgba(199,91,57,.16);
+  }
+  .est-head { display: flex; align-items: center; justify-content: space-between; }
+  .est-head b { font-size: 13px; color: var(--primary); font-weight: 400; }
+  .badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 8px; }
+  .badge.good { background: var(--good-bg); color: var(--good); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn); }
+  .badge.blue { background: #E0EAFF; color: #3B5BDB; }
+  .est-val { margin-top: 8px; font-size: 28px; font-weight: 700; color: var(--primary); }
+  .est-sub { margin-top: 4px; font-size: 11px; color: var(--sub); }
+  .est-src { margin-top: 8px; font-size: 11px; color: var(--faint); line-height: 1.5; }
+
+  .foot-note { margin-top: 16px; font-size: 11px; color: var(--faint); text-align: center; }
+  .pad-tab { padding-bottom: 78px; }
+
+  /* ---------- 结果页 ---------- */
+  .res-body { padding: 16px 16px 78px; }
+  .back { font-size: 14px; color: var(--primary); margin-bottom: 12px; }
+  .res-range {
+    background: #fff; border-radius: 16px; padding: 16px; text-align: center;
+    box-shadow: 0 2px 10px rgba(11,13,18,.06);
+  }
+  .res-range .k { font-size: 13px; color: var(--sub); }
+  .res-range .v { font-size: 30px; font-weight: 700; margin-top: 8px; }
+  .res-range .m { font-size: 13px; color: var(--sub); margin-top: 4px; }
+  .res-range .meta { font-size: 11px; color: var(--faint); margin-top: 8px; }
+
+  .verdict { margin-top: 12px; border-radius: 12px; padding: 16px; }
+  .verdict.warn { background: var(--warn-bg); }
+  .verdict b { display: block; font-size: 15px; color: var(--warn); }
+  .verdict s { display: block; text-decoration: none; margin-top: 4px; font-size: 12px; color: var(--warn); }
+
+  .card {
+    background: #fff; border-radius: 16px; padding: 16px; margin-top: 12px;
+    box-shadow: 0 2px 10px rgba(11,13,18,.06);
+  }
+  .card h3 { margin: 0 0 14px; font-size: 15px; font-weight: 700; }
+
+  .part { margin-bottom: 14px; }
+  .part-top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+  .part-top b { font-weight: 600; }
+  .part-top span { color: var(--sub); }
+  .bar { height: 8px; border-radius: 999px; background: var(--line-soft); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 999px; }
+
+  .slider-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 12px; }
+  .slider-row b { font-size: 24px; font-weight: 700; color: var(--overflow); }
+  .slider-row span { font-size: 13px; color: var(--sub); }
+  .track { position: relative; height: 6px; border-radius: 999px; background: var(--line); margin: 18px 0 10px; }
+  .track i { position: absolute; left: 0; top: 0; bottom: 0; width: 55%; border-radius: 999px; background: var(--overflow); }
+  .track u {
+    position: absolute; left: 55%; top: 50%; transform: translate(-50%,-50%);
+    width: 21px; height: 21px; border-radius: 50%; background: #fff;
+    border: 2px solid var(--overflow); box-shadow: 0 2px 6px rgba(0,0,0,.18);
+  }
+  .scale { display: flex; justify-content: space-between; font-size: 10px; color: var(--faint); }
+  .hint-text { font-size: 11px; color: var(--sub); line-height: 1.6; }
+
+  .kv { display: flex; justify-content: space-between; padding: 8px 0; font-size: 13px; }
+  .kv span { color: var(--sub); }
+  .kv b { font-weight: 600; }
+
+  .src-box { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+  .src-box b { font-size: 12px; }
+  .src-box p { margin: 3px 0 0; font-size: 11px; color: var(--sub); }
+  .src-box .url { color: var(--faint); font-size: 10px; }
+
+  /* ---------- 我的 ---------- */
+  .me-head { padding: 62px 24px 56px; display: flex; align-items: center; gap: 16px; }
+  .avatar {
+    width: 62px; height: 62px; border-radius: 50%;
+    background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.28);
+    display: flex; align-items: center; justify-content: center; flex: none;
+  }
+  .me-name { font-size: 26px; font-weight: 700; color: #fff; }
+  .me-tag {
+    display: inline-block; margin-top: 8px; padding: 3px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.16); font-size: 11px; color: rgba(255,255,255,.9);
+  }
+
+  .overview {
+    display: flex; align-items: center; margin: -40px 16px 0;
+    background: #fff; border-radius: 16px; padding: 16px 0;
+    box-shadow: 0 2px 10px rgba(11,13,18,.06); position: relative; z-index: 5;
+  }
+  .overview .st { flex: 1; text-align: center; }
+  .overview .st b { display: block; font-size: 26px; font-weight: 700; }
+  .overview .st b.accent { color: var(--primary); }
+  .overview .st s { display: block; text-decoration: none; margin-top: 4px; font-size: 11px; color: var(--sub); }
+  .overview .sep { width: 1px; height: 26px; background: var(--line-soft); }
+
+  .sec-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin: 24px 16px 8px; padding: 0 4px;
+  }
+  .sec-head b { font-size: 13px; font-weight: 600; color: var(--sub); }
+  .sec-head s { text-decoration: none; font-size: 11px; color: var(--faint); }
+
+  .sec {
+    margin: 0 16px; background: #fff; border-radius: 16px; padding: 4px 16px;
+    box-shadow: 0 2px 10px rgba(11,13,18,.06);
+  }
+
+  .grade-bar { display: flex; height: 8px; border-radius: 999px; overflow: hidden; margin-top: 16px; background: var(--line-soft); }
+  .grade-bar i { display: block; height: 100%; }
+  .legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+  .legend div { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--sub); }
+  .legend em { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .snapshot { margin: 12px 0 16px; font-size: 11px; color: var(--faint); line-height: 1.6; }
+
+  .row {
+    display: flex; align-items: center; height: 50px;
+    border-bottom: 1px solid var(--line-soft); font-size: 15px;
+  }
+  .row:last-child { border-bottom: none; }
+  .row .ri { width: 18px; display: flex; justify-content: center; flex: none; }
+  .row .rl { flex: 1; margin-left: 12px; }
+  .row .rv { font-size: 13px; color: var(--sub); }
+  .row .rc { margin-left: 8px; color: var(--faint); }
+
+  .empty { text-align: center; padding: 24px 0; }
+  .empty b { display: block; margin-top: 8px; font-size: 15px; font-weight: 400; color: var(--sub); }
+  .empty s { display: block; text-decoration: none; margin-top: 4px; font-size: 11px; color: var(--faint); }
+
+  .exit {
+    margin: 32px 16px 0; height: 48px; border-radius: 999px; background: #fff;
+    border: 1px solid var(--line); display: flex; align-items: center; justify-content: center;
+    font-size: 15px; color: var(--sub);
+  }
+  .foot { margin: 24px 0 76px; text-align: center; font-size: 11px; color: var(--faint); }
+
+  svg { display: block; }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>看光光 — 界面预览</h1>
+  <p>
+    手机 App（React Native + Expo SDK 57）。下方四屏与图标均按当前代码 1:1 还原，
+    <b>所有数字都是估价核心实算出来的</b>，没有占用示意图的值。
+  </p>
+  <div class="tags">
+    <span>expo-router 文件路由</span>
+    <span>共 4 个页面</span>
+    <span>打包验证 1230 模块通过</span>
+    <span>面料 18 种 · 品类 10 类</span>
+  </div>
+</div>
+
+<h2 class="section">App 图标与启动图（由脚本合成，无水印）</h2>
+<div class="icon-row">
+  <div class="icon-item">
+    <img class="icon-sq" src="../assets/icon.png" alt="App 图标">
+    <div class="icon-cap">主图标 1024×1024<br>iOS / 通用</div>
+  </div>
+  <div class="icon-item">
+    <img class="icon-circle" src="../assets/icon.png" alt="Android 自适应图标">
+    <div class="icon-cap">Android 自适应图标<br>前景 + 渐变底分开</div>
+  </div>
+  <div class="icon-item">
+    <div class="splash-box"><img src="../assets/splash-icon.png" alt="启动图"></div>
+    <div class="icon-cap">启动图 512×512<br>透明底</div>
+  </div>
+</div>
+
+<h2 class="section">应用内界面</h2>
+<div class="screens">
+
+  <!-- ============ 1. 登录页 ============ -->
+  <div class="phone-wrap">
+    <div class="phone-cap">登录 / 欢迎页 <em>入口</em></div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="brand-head login-brand">
+          <div class="halo halo-a"></div>
+          <div class="halo halo-b"></div>
+          <div class="mark">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <div class="brand-name">看光光</div>
+          <div class="brand-slogan">拍一下，看清它到底值多少钱</div>
+        </div>
+
+        <div class="sheet overlap">
+          <div class="sheet-title">手机号登录</div>
+          <div class="sheet-sub">未注册的手机号将自动创建账号</div>
+
+          <div class="field">
+            <div class="prefix"><b>+86</b><i></i></div>
+            <div class="ph">请输入手机号</div>
+          </div>
+
+          <div class="field">
+            <div class="ph">6 位验证码</div>
+            <div class="act">获取验证码</div>
+          </div>
+
+          <div class="agree">
+            <span class="cb"></span>
+            <p>我已阅读并同意<a>《用户协议》</a>与<a>《隐私政策》</a></p>
+          </div>
+
+          <div class="btn-main off">登录 / 注册</div>
+
+          <div class="divider"><span></span><em>或</em><span></span></div>
+
+          <div class="btn-ghost">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C75B39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8a2 2 0 0 1 2-2h1.5l1-2h9l1 2H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <circle cx="12" cy="12.5" r="3.5"/>
+            </svg>
+            先随便看看（游客模式）
+          </div>
+
+          <div class="tip">账号服务尚未接入，当前可直接使用游客模式，数据仅保存在本机</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2. 首页 ============ -->
+  <div class="phone-wrap">
+    <div class="phone-cap">估价（首页） <em>Tab 1</em></div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen pad-tab">
+        <div class="brand-head home-head">
+          <div class="halo halo-a"></div>
+          <div class="home-brand">看光光</div>
+          <div class="home-slogan">看清一件衣服的钱，到底花在哪</div>
+
+          <div class="camera">
+            <div class="ci">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8a2 2 0 0 1 2-2h1.5l1-2h9l1 2H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <circle cx="12" cy="12.5" r="3.5"/>
+              </svg>
+            </div>
+            <div class="ct">
+              <b>拍照识别服饰</b>
+              <s>需服务端接入，当前请手动录入</s>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+
+        <div class="sheet" style="margin-top:-34px;border-top-left-radius:22px;border-top-right-radius:22px;">
+          <div class="label">商品名称 / 描述</div>
+          <div class="input">例如：全棉纱卡工装外套</div>
+
+          <div class="label">品类</div>
+          <div class="chips">
+            <span class="chip">针织</span><span class="chip">衬衫</span><span class="chip">裤装</span>
+            <span class="chip on">外套</span><span class="chip">羽绒</span><span class="chip">裙装</span>
+            <span class="chip">西装</span><span class="chip">鞋</span><span class="chip">包</span><span class="chip">配饰</span>
+          </div>
+
+          <div class="label">面料</div>
+          <div class="chips">
+            <span class="chip on">全棉轧染纱卡</span><span class="chip">羊毛呢</span><span class="chip">羊绒</span>
+            <span class="chip">真丝</span><span class="chip">亚麻</span><span class="chip">牛仔</span>
+            <span class="chip">涤纶</span><span class="chip">雪纺</span>
+          </div>
+
+          <div class="row2">
+            <div>
+              <div class="label">用料（米）</div>
+              <div class="input" style="color:#16181D;">1.8</div>
+            </div>
+            <div>
+              <div class="label">实际售价（可选）</div>
+              <div class="input" style="color:#16181D;">899</div>
+            </div>
+          </div>
+
+          <div class="label">品牌档位</div>
+          <div class="chips">
+            <span class="chip">无品牌 / 白牌</span><span class="chip">普通品牌</span>
+            <span class="chip on">知名品牌</span><span class="chip">奢侈品牌</span>
+          </div>
+
+          <div class="est">
+            <div class="est-head">
+              <b>材料成本预估</b>
+              <span class="badge good">政府公布报价</span>
+            </div>
+            <div class="est-val">¥36.5</div>
+            <div class="est-sub">主料 ¥28.08 + 辅料 ¥8.42</div>
+            <div class="est-src">全棉轧染纱卡 ¥15.6/米 · 148cm 20S×16S、128×60 全工艺环保</div>
+          </div>
+
+          <div class="btn-main">估算真实价值</div>
+          <div class="foot-note">估值仅供参考，不构成购买建议</div>
+        </div>
+      </div>
+
+      <div class="tabbar">
+        <div class="tab on">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#C75B39" stroke-width="1.8" stroke-linecap="round">
+            <path d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          估价
+        </div>
+        <div class="tab">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6"/>
+          </svg>
+          我的
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3. 结果页 ============ -->
+  <div class="phone-wrap">
+    <div class="phone-cap">价值拆解页 <em>从首页推入</em></div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="res-body">
+          <div class="back">← 重新估算</div>
+
+          <div class="res-range">
+            <div class="k">全棉纱卡工装外套 的真实价值</div>
+            <div class="v">¥202 — 304</div>
+            <div class="m">中位价 ¥253</div>
+            <div class="meta">外套 / 夹克 · 知名品牌</div>
+          </div>
+
+          <div class="verdict warn">
+            <b>售价明显高于真实价值</b>
+            <s>实际售价 ¥899 · 约为真实价值的 3.6 倍</s>
+          </div>
+
+          <div class="card">
+            <h3>钱花在哪</h3>
+
+            <div class="part">
+              <div class="part-top"><b>材料成本</b><span>¥36.5 · 14%</span></div>
+              <div class="bar"><i style="width:14%;background:var(--material)"></i></div>
+            </div>
+            <div class="part">
+              <div class="part-top"><b>加工成本</b><span>¥45 · 18%</span></div>
+              <div class="bar"><i style="width:18%;background:var(--processing)"></i></div>
+            </div>
+            <div class="part">
+              <div class="part-top"><b>设计成本</b><span>¥20.38 · 8%</span></div>
+              <div class="bar"><i style="width:8%;background:var(--design)"></i></div>
+            </div>
+            <div class="part">
+              <div class="part-top"><b>品牌溢价</b><span>¥61.13 · 24%</span></div>
+              <div class="bar"><i style="width:24%;background:var(--brand)"></i></div>
+            </div>
+            <div class="part" style="margin-bottom:4px">
+              <div class="part-top"><b>允许溢出</b><span>¥89.66 · 36%</span></div>
+              <div class="bar"><i style="width:36%;background:var(--overflow)"></i></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>允许溢出，你说了算</h3>
+            <div class="hint-text">这部分是运费、人工、销售等流通环节的合理加价。给多少取决于你认为多少算合理 —— 拖一下，上面的结果会跟着变。</div>
+            <div class="slider-row"><b>55%</b><span>¥89.66</span></div>
+            <div class="track"><i></i><u></u></div>
+            <div class="scale"><span>0%</span><span>50%</span><span>100%</span></div>
+          </div>
+
+          <div class="card">
+            <h3>材料价格来自哪</h3>
+            <div class="kv"><span>全棉轧染纱卡</span><b>¥15.6/米</b></div>
+            <div class="kv" style="padding-top:0"><span style="font-size:11px;color:var(--faint)">148cm 20S×16S、128×60 全工艺环保</span></div>
+            <div style="margin-top:4px"><span class="badge good">政府公布报价</span></div>
+            <div class="src-box">
+              <b>绍兴e价通 · 中国轻纺城畅销面料排行榜</b>
+              <p>发布机构：绍兴市发展和改革委员会、柯桥区发展和改革局</p>
+              <p>数据期：2026-06-22</p>
+              <p class="url">https://jgjg.sx.gov.cn/</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>这次用的系数</h3>
+            <div class="kv"><span>加工费（元/件）</span><b>45</b></div>
+            <div class="kv"><span>设计费率</span><b>0.25</b></div>
+            <div class="kv"><span>品牌溢价率</span><b>0.6</b></div>
+            <div class="kv"><span>允许溢出比例</span><b>0.55（你调的）</b></div>
+            <div class="kv"><span>区间半宽</span><b>0.2</b></div>
+            <div class="kv"><span>用料</span><b>1.8 米</b></div>
+          </div>
+
+          <div class="disclaimer foot-note">估值仅供参考，不构成购买建议</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 4. 我的 ============ -->
+  <div class="phone-wrap">
+    <div class="phone-cap">我的（个人面板） <em>Tab 2</em></div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen pad-tab">
+        <div class="brand-head me-head">
+          <div class="halo halo-a"></div>
+          <div class="avatar">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+              <circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="me-name">游客</div>
+            <div class="me-tag">本机数据 · 未同步云端</div>
+          </div>
+        </div>
+
+        <div class="overview">
+          <div class="st"><b>18</b><s>面料库</s></div>
+          <div class="sep"></div>
+          <div class="st"><b>10</b><s>覆盖品类</s></div>
+          <div class="sep"></div>
+          <div class="st"><b class="accent">6</b><s>官方报价</s></div>
+        </div>
+
+        <div class="sec-head"><b>数据可信度</b><s>共 18 种面料，按出处分级</s></div>
+        <div class="sec">
+          <div class="grade-bar">
+            <i style="width:33%;background:var(--good)"></i>
+            <i style="width:11%;background:var(--design)"></i>
+            <i style="width:56%;background:var(--warn)"></i>
+          </div>
+          <div class="legend">
+            <div><em style="background:var(--good)"></em>政府公布 6</div>
+            <div><em style="background:var(--design)"></em>指数报价 2</div>
+            <div><em style="background:var(--warn)"></em>行业估算 10</div>
+          </div>
+          <div class="snapshot">价格快照：2026-06-22　·　官方源：绍兴e价通、商务部商务预报、中国棉花信息网</div>
+        </div>
+
+        <div class="sec-head"><b>我的估价偏好</b></div>
+        <div class="sec">
+          <div class="row">
+            <span class="ri">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round">
+                <path d="M4 7h10M18 7h2M4 12h4M12 12h8M4 17h12M20 17h0"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="17" r="2"/>
+              </svg>
+            </span>
+            <span class="rl">默认溢出比例</span>
+            <span class="rv">55%</span>
+          </div>
+          <div class="row">
+            <span class="ri">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2V3h10.4l6.8 6.8a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/>
+              </svg>
+            </span>
+            <span class="rl">默认品牌档位</span>
+            <span class="rv">知名品牌</span>
+          </div>
+          <div style="padding:12px 0;font-size:11px;color:var(--faint);line-height:1.6">
+            溢出比例在结果页可随时拖动调整，这里只是每次打开时的默认值
+          </div>
+        </div>
+
+        <div class="sec-head"><b>我的记录</b></div>
+        <div class="sec">
+          <div class="empty">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" style="margin:0 auto">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2"/>
+            </svg>
+            <b>还没有估价记录</b>
+            <s>拍第一件东西后，这里会留下它的价值拆解</s>
+          </div>
+        </div>
+
+        <div class="sec-head"><b>关于</b></div>
+        <div class="sec">
+          <div class="row">
+            <span class="ri">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 3 8l9 5 9-5-9-5zM3 14l9 5 9-5M3 11l9 5 9-5"/>
+              </svg>
+            </span>
+            <span class="rl">数据来源说明</span>
+            <span class="rc">›</span>
+          </div>
+          <div class="row">
+            <span class="ri">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>
+              </svg>
+            </span>
+            <span class="rl">免责声明</span>
+            <span class="rc">›</span>
+          </div>
+          <div class="row">
+            <span class="ri">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round">
+                <circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/>
+              </svg>
+            </span>
+            <span class="rl">版本</span>
+            <span class="rv">0.1.0</span>
+          </div>
+        </div>
+
+        <div class="exit">退出登录</div>
+        <div class="foot">估值仅供参考，不构成购买建议</div>
+      </div>
+
+      <div class="tabbar">
+        <div class="tab">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round">
+            <path d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          估价
+        </div>
+        <div class="tab on">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#C75B39" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6"/>
+          </svg>
+          我的
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
