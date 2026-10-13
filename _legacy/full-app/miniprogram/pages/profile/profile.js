@@ -162,7 +162,7 @@ Page({
       success: function (res) {
         if (!res.confirm) return;
         try {
-          wx.removeStorageSync('kgg.prefs');
+          wx.removeStorageSync('cv.prefs');
         } catch (err) {
           // 清不掉也不影响使用，下次启动仍是旧值
         }

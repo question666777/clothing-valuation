@@ -1,6 +1,6 @@
 <view class="page">
   <view class="head">
-    <text class="head__brand">看光光</text>
+    <text class="head__brand">衣物估价</text>
     <text class="head__slogan">看清一件衣服的钱，到底花在哪</text>
 
     <view class="camera" hover-class="camera--hover" bindtap="onPickLabel">

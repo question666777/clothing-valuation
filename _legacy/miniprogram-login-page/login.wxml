@@ -7,7 +7,7 @@
       <view class="mark">
         <view class="mark__scan"></view>
       </view>
-      <text class="brand__name">看光光</text>
+      <text class="brand__name">衣物估价</text>
       <text class="brand__slogan">拍一下，看清它到底值多少钱</text>
     </view>
   </view>

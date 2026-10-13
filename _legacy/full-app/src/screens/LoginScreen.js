@@ -92,7 +92,7 @@ export default function LoginScreen({ onGuestEnter, onLoginSubmit }) {
             <View style={styles.mark}>
               <Ionicons name="scan-outline" size={26} color="#FFFFFF" />
             </View>
-            <Text style={styles.brandName}>看光光</Text>
+            <Text style={styles.brandName}>衣物估价</Text>
             <Text style={styles.brandSlogan}>拍一下，看清它到底值多少钱</Text>
           </View>
         </LinearGradient>

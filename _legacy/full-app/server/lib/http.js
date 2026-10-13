@@ -19,7 +19,7 @@ const https = require('https');
 const http = require('http');
 const { TextDecoder } = require('util');
 
-const UA = 'KanGuangGuang/0.1 (personal price-snapshot tool; node ' + process.version + ')';
+const UA = 'ClothingValuation/0.1 (personal price-snapshot tool; node ' + process.version + ')';
 
 const MIN_INTERVAL_MS = 600;
 let lastRequestAt = 0;

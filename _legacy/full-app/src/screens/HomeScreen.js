@@ -109,7 +109,7 @@ export default function HomeScreen({ onSubmit }) {
           end={{ x: 0.9, y: 1 }}
           style={styles.header}
         >
-          <Text style={styles.brand}>看光光</Text>
+          <Text style={styles.brand}>衣物估价</Text>
           <Text style={styles.slogan}>看清一件衣服的钱，到底花在哪</Text>
 
           <Pressable

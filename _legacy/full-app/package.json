@@ -1,8 +1,8 @@
 {
-  "name": "kanguangguang",
+  "name": "clothing-valuation",
   "version": "0.1.0",
   "main": "expo-router/entry",
-  "description": "看光光 —— 拍照识别服饰，按材料+加工+设计+品牌溢价+允许溢出估算真实价值",
+  "description": "衣物估价 —— 拍照识别服饰，按材料+加工+设计+品牌溢价+允许溢出估算真实价值",
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
     "@react-native-community/slider": "5.2.0",

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "看光光",
+  "navigationBarTitleText": "衣物估价",
   "usingComponents": {
     "option-chips": "/components/option-chips/option-chips"
   }

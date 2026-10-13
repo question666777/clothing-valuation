@@ -17,7 +17,7 @@
  * 与本项目「运行时零联网」冲突 —— 所以**现在不做**，只留接口位。
  */
 
-var AUTH_KEY = 'kgg.auth';
+var AUTH_KEY = 'cv.auth';
 
 // 后端换 openid 的占位：当前阶段不联网，仅存 code 供将来接入
 var pendingCode = null;

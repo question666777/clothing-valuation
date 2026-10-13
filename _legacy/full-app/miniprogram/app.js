@@ -1,7 +1,7 @@
 // 全局状态。账号口径见 AGENTS.md 第 6 节：不做云端账号与云同步，
 // 这里的偏好只写本机缓存，不上传、不发短信、不做真实鉴权。
 
-const PREF_KEY = 'kgg.prefs';
+const PREF_KEY = 'cv.prefs';
 
 const DEFAULT_PREFS = {
   overflowRatio: 0.5,

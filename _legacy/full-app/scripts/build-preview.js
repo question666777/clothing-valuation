@@ -254,7 +254,7 @@ function estimatePage() {
   return [
     '<div class="page">',
     '<div class="head">',
-    '<div class="head__brand">看光光</div>',
+    '<div class="head__brand">衣物估价</div>',
     '<div class="head__slogan">看清一件衣服的钱，到底花在哪</div>',
     '<div class="camera"><div class="camera__icon"><div class="camera__lens"></div></div>',
     '<div class="camera__texts"><div class="camera__title">拍水洗标，自动读成分</div>',
@@ -532,7 +532,7 @@ const generatedAt = new Date().toLocaleString('zh-CN', { hour12: false });
 
 const html = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="utf-8" />\n'
 + '<meta name="viewport" content="width=device-width, initial-scale=1" />\n'
-+ '<title>看光光 · 小程序界面预览</title>\n<style>\n'
++ '<title>衣物估价 · 小程序界面预览</title>\n<style>\n'
 + ':root {\n'
 + Object.keys(C).map(function (k) {
    return '  --c-' + k + ': ' + C[k] + ';';
@@ -540,7 +540,7 @@ const html = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="utf-8
 + '}\n' + fs.readFileSync(path.join(__dirname, 'preview-style.css'), 'utf8')
 + '\n</style>\n</head>\n<body>\n'
 + '<header class="doc">\n'
-+ '<h1>看光光 · 小程序界面预览</h1>\n'
++ '<h1>衣物估价 · 小程序界面预览</h1>\n'
 + '<p class="doc__lead">这是微信小程序<strong>三页</strong>的静态还原，<strong>不用装开发者工具</strong>就能看效果。'
 + '页面里的每一个数字（材料成本、五段拆解、品牌毛利率、数据分级）都从 <code>/config</code> 与 '
 + '<code>/core</code> <strong>实算</strong>得到，没有一个是手敲的 —— 改配置重跑就会跟着变。'

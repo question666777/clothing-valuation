@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "看光光",
-    "slug": "kanguangguang",
+    "name": "衣物估价",
+    "slug": "clothing-valuation",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "kanguangguang",
+    "scheme": "clothing-valuation",
     "userInterfaceStyle": "light",
     "backgroundColor": "#F4F5F7",
     "ios": {
